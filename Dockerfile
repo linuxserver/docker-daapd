@@ -1,3 +1,4 @@
+
 FROM linuxserver/baseimage
 MAINTAINER Mark Burford <sparklyballs@gmail.com>
 
@@ -52,10 +53,9 @@ RUN mv /prebuild/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update && \
 apt-get install --no-install-recommends \
 $buildDeps -qy && \
-apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 # build curl package
-RUN cd /tmp && \
+cd /tmp && \
 wget http://curl.haxx.se/download/curl-7.43.0.tar.gz && \
 tar xvf curl-* && \
 cd curl-* && \
@@ -65,10 +65,9 @@ cd curl-* && \
 --with-zlib && \
 make && \
 make install && \
-rm -rf /tmp/*
 
 # build taglib package
-RUN cd /tmp && \
+cd /tmp && \
 wget http://taglib.github.io/releases/taglib-1.9.1.tar.gz && \
 tar xvf taglib-* && \
 cd taglib-* && \
@@ -76,20 +75,18 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_RELEASE_TYPE=Release . && \
 make && \
 make install && \
 ldconfig && \
-rm -rf /tmp/*
 
 # build libevent package
-RUN cd /tmp && \
+cd /tmp && \
 wget --no-check-certificate https://qa.debian.org/watch/sf.php/levent/libevent-2.1.5-beta.tar.gz && \
 tar xvf libevent-* && \
 cd libevent-*  && \
 ./configure && \
 make && \
 make install && \
-rm -rf /tmp/*
 
 # build sqlite package
-RUN cd /tmp && \
+cd /tmp && \
 wget http://www.sqlite.org/sqlite-amalgamation-3.7.2.tar.gz && \
 tar xvf sqlite-* && \
 cd sqlite-* && \
@@ -97,10 +94,9 @@ mv /prebuild/Makefile.*  . && \
 ./configure && \
 make && \
 make install && \
-rm -rf /tmp/*
 
 # build ffmpeg package
-RUN cd /tmp && \
+cd /tmp && \
 git clone https://github.com/FFmpeg/FFmpeg.git && \
 cd FFmpeg && \
 ./configure \
@@ -111,10 +107,9 @@ cd FFmpeg && \
 --disable-debug && \
 make && \
 make install && \
-rm -rf /tmp/*
 
 # configure and build forked-daapd
-RUN cd /tmp && \
+cd /tmp && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
 cd forked-daapd && \
 autoreconf -i && \
@@ -128,16 +123,14 @@ autoreconf -i && \
 make && \
 make install && \
 cd / && \
-rm -rf /tmp/*
 
 # clean build dependencies
-RUN apt-get purge --remove \
+apt-get purge --remove \
 $buildDeps -y && \
 apt-get -y autoremove && \
-apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 # install runtime dependencies
-RUN apt-get update -q && \
+apt-get update -q && \
 apt-get install \
 $runtimeDeps -qy && \
 apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
