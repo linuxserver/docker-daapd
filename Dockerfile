@@ -122,8 +122,6 @@ autoreconf -i && \
 --enable-itunes \
 --enable-mpd \
 --enable-lastfm \
---enable-flac \
---enable-musepack \
 --prefix=/app \
 --sysconfdir=/etc \
 --localstatedir=/var && \
