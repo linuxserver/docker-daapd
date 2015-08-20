@@ -4,13 +4,10 @@ MAINTAINER Mark Burford <sparklyballs@gmail.com>
 
 ENV HOME /root
 
-# add files required before we build the packages
-RUN mkdir -p /prebuild
-ADD prebuild /prebuild/
-
-# set the app folder
-RUN mkdir -p /app && \
+# make some folders and add some files required before we build the packages
+RUN mkdir -p /prebuild /defaults /app && \
 chown abc:abc -R /app
+ADD prebuild /prebuild/
 
 # install build dependencies
 RUN mv /prebuild/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
@@ -106,6 +103,7 @@ autoreconf -i && \
 --localstatedir=/var && \
 make && \
 make install && \
+cp /etc/forked-daapd.conf /defaults/forked-daapd.conf && \
 cd / && \
 
 # clean build dependencies
@@ -149,24 +147,20 @@ avahi-daemon \
 libconfuse0 -qy && \
 apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
+# set volumes
+VOLUME /config /music
+
+#Adding Custom files
+ADD init/ /etc/my_init.d/
+ADD services/ /etc/service/
+RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
+
 # tweak config for forked-daapd
-RUN sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /etc/forked-daapd.conf && \
+sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /etc/forked-daapd.conf && \
 sed -i s#"My Music on %h"#"LS.IO Music"#g /etc/forked-daapd.conf && \
 sed -i s#/srv/music#/music#g /etc/forked-daapd.conf && \
 sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /etc/forked-daapd.conf && \
 sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /etc/forked-daapd.conf && \
 sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /etc/forked-daapd.conf && \
 sed -i "/db_path\ =/ s/# *//" /etc/forked-daapd.conf && \
-sed -i "/cache_path\ =/ s/# *//" /etc/forked-daapd.conf 
-
-# set volumes
-VOLUME /config /music
-
-#Adding Custom files
-RUN mkdir -p /defaults 
-RUN cp /etc/forked-daapd.conf /defaults/forked-daapd.conf 
-ADD init/ /etc/my_init.d/
-ADD services/ /etc/service/
-RUN chmod -v +x /etc/service/*/run
-RUN chmod -v +x /etc/my_init.d/*.sh
-
+sed -i "/cache_path\ =/ s/# *//" /etc/forked-daapd.conf
