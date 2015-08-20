@@ -103,7 +103,6 @@ autoreconf -i && \
 --localstatedir=/var && \
 make && \
 make install && \
-cp /etc/forked-daapd.conf /defaults/forked-daapd.conf && \
 cd / && \
 
 # clean build dependencies
@@ -163,4 +162,5 @@ sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /e
 sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /etc/forked-daapd.conf && \
 sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /etc/forked-daapd.conf && \
 sed -i "/db_path\ =/ s/# *//" /etc/forked-daapd.conf && \
-sed -i "/cache_path\ =/ s/# *//" /etc/forked-daapd.conf
+sed -i "/cache_path\ =/ s/# *//" /etc/forked-daapd.conf && \
+cp /etc/forked-daapd.conf /defaults/forked-daapd.conf
