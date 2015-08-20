@@ -12,8 +12,11 @@ ADD prebuild /prebuild/
 RUN mkdir -p /app && \
 chown abc:abc -R /app
 
-# set variable containing build dependencies
-ENV buildDeps="automake \
+# install build dependencies
+RUN mv /prebuild/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
+apt-get update && \
+apt-get install --no-install-recommends \
+automake \
 gperf \
 gettext \
 libtool \
@@ -33,26 +36,7 @@ libantlr3c-dev \
 git-core \
 wget \
 libavahi-client-dev \
-libconfuse-dev"
-
-# set variable containing runtime dependencies
-ENV runtimeDeps="libgcrypt20 \
-libavahi-client3 \
-libflac8 \
-libogg0 \
-libantlr3c-3.2-0 \
-libasound2 \
-libplist1 \
-libmxml1 \
-libunistring0 \
-avahi-daemon \
-libconfuse0"
-
-# install build dependencies
-RUN mv /prebuild/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
-apt-get update && \
-apt-get install --no-install-recommends \
-$buildDeps -qy && \
+libconfuse-dev -qy && \
 
 # build curl package
 cd /tmp && \
@@ -126,13 +110,43 @@ cd / && \
 
 # clean build dependencies
 apt-get purge --remove \
-$buildDeps -y && \
+automake \
+gperf \
+gettext \
+libtool \
+yasm \
+autoconf \
+libgcrypt20-dev \
+cmake \
+build-essential \
+libflac-dev \
+antlr3 \
+libasound2-dev \
+libplist-dev \
+libmxml-dev \
+zlib1g-dev \
+libunistring-dev \
+libantlr3c-dev \
+git-core \
+wget \
+libavahi-client-dev \
+libconfuse-dev -y && \
 apt-get -y autoremove && \
 
 # install runtime dependencies
 apt-get update -q && \
 apt-get install \
-$runtimeDeps -qy && \
+libgcrypt20 \
+libavahi-client3 \
+libflac8 \
+libogg0 \
+libantlr3c-3.2-0 \
+libasound2 \
+libplist1 \
+libmxml1 \
+libunistring0 \
+avahi-daemon \
+libconfuse0 -qy && \
 apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 # tweak config for forked-daapd
