@@ -1,6 +1,6 @@
 
 FROM linuxserver/baseimage
-MAINTAINER Mark Burford <sparklyballs@gmail.com>
+MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
 
 ENV HOME /root
 
