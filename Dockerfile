@@ -1,12 +1,9 @@
-
 FROM linuxserver/baseimage
 MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
 
 ENV HOME /root
 
-# make some folders and add some files required before we build the packages
-RUN mkdir -p /prebuild /defaults /app && \
-chown abc:abc -R /app
+# add some files required before we build the packages
 ADD prebuild /prebuild/
 
 # install build dependencies
