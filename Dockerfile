@@ -1,10 +1,13 @@
 FROM linuxserver/baseimage
 MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
 
-ENV HOME /root 
-ENV APTLIST="avahi-daemon libavahi-client3 libantlr3c-3.2-0 libasound2 libconfuse0 libflac8 libgcrypt20 libmxml1 libogg0 libplist1 libunistring0"
-ENV BUILD_APTLIST="antlr3 autoconf automake build-essential cmake gettext git-core gperf libantlr3c-dev libasound2-dev libavahi-client-dev libconfuse-dev libflac-dev libgcrypt20-dev libplist-dev libtool libunistring-dev libmxml-dev wget yasm zlib1g-dev"
+ENV APTLIST="avahi-daemon libavahi-client3 libantlr3c-3.2-0 libasound2 \
+libconfuse0 libflac8 libgcrypt20 libmxml1 libogg0 libplist1 libunistring0"
 
+ENV BUILD_APTLIST="antlr3 autoconf automake build-essential cmake gettext \
+git-core gperf libantlr3c-dev libasound2-dev libavahi-client-dev libconfuse-dev \ 
+libflac-dev libgcrypt20-dev libplist-dev libtool libunistring-dev libmxml-dev \
+wget yasm zlib1g-dev"
 
 # add some files required before we build the packages
 ADD prebuild /prebuild/
@@ -96,10 +99,7 @@ apt-get install \
 $APTLIST -qy && \
 apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-# set volumes
-VOLUME /config /music
-
-#Adding Custom files
+# Adding Custom files
 ADD init/ /etc/my_init.d/
 ADD services/ /etc/service/
 RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
@@ -114,4 +114,7 @@ sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /et
 sed -i "/db_path\ =/ s/# *//" /etc/forked-daapd.conf && \
 sed -i "/cache_path\ =/ s/# *//" /etc/forked-daapd.conf && \
 cp /etc/forked-daapd.conf /defaults/forked-daapd.conf
+
+# set volumes
+VOLUME /config /music
 
