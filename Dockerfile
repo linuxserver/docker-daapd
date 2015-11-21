@@ -9,21 +9,23 @@ git-core gperf libantlr3c-dev libasound2-dev libavahi-client-dev libconfuse-dev 
 libflac-dev libgcrypt20-dev libplist-dev libtool libunistring-dev libmxml-dev \
 wget yasm zlib1g-dev"
 
-# add some files required before we build the packages
-ADD prebuild /prebuild/
+# set source versions
+ENV CURL_VER="7.45.0" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3090200"
+
+# add excludes file
+ADD excludes /etc/dpkg/dpkg.cfg.d/excludes
 
 # install build dependencies
-RUN mv /prebuild/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
-apt-get update && \
+RUN apt-get update && \
 apt-get install --no-install-recommends \
 $BUILD_APTLIST -qy && \
 
 # fetch source code
 mkdir -p /tmp/curl /tmp/taglib /tmp/libevent /tmp/sqlite && \
-curl -o /tmp/curl.tar.gz -L http://curl.haxx.se/download/curl-7.43.0.tar.gz && \
-curl -o  /tmp/taglib.tar.gz -L  http://taglib.github.io/releases/taglib-1.9.1.tar.gz && \
-curl -o /tmp/libevent.tar.gz  -L https://qa.debian.org/watch/sf.php/levent/libevent-2.1.5-beta.tar.gz && \
-curl -o /tmp/sqlite.tar.gz -L http://www.sqlite.org/sqlite-amalgamation-3.7.2.tar.gz && \
+curl -o /tmp/curl.tar.gz -L http://curl.haxx.se/download/curl-$CURL_VER.tar.gz && \
+curl -o  /tmp/taglib.tar.gz -L  http://taglib.github.io/releases/taglib-$TAGLIB_VER.tar.gz && \
+curl -o /tmp/libevent.tar.gz  -L https://qa.debian.org/watch/sf.php/levent/libevent-$LIBEVENT_VER.tar.gz && \
+curl -o /tmp/sqlite.tar.gz -L https://www.sqlite.org/2015/sqlite-$SQLITE_VER.tar.gz && \
 tar xvf /tmp/curl.tar.gz -C /tmp/curl --strip-components=1 && \
 tar xvf /tmp/taglib.tar.gz -C /tmp/taglib --strip-components=1 && \
 tar xvf /tmp/libevent.tar.gz -C /tmp/libevent --strip-components=1 && \
@@ -55,7 +57,8 @@ make install && \
 
 # build sqlite package
 cd /tmp/sqlite && \
-mv /prebuild/Makefile.*  . && \
+sed -i '/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite/Makefile.in && \
+sed -i '/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite/Makefile.am && \
 ./configure && \
 make && \
 make install && \
