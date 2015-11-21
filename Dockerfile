@@ -18,11 +18,21 @@ apt-get update && \
 apt-get install --no-install-recommends \
 $BUILD_APTLIST -qy && \
 
+# fetch source code
+mkdir -p /tmp/curl /tmp/taglib /tmp/libevent /tmp/sqlite && \
+curl -o /tmp/curl.tar.gz -L http://curl.haxx.se/download/curl-7.43.0.tar.gz && \
+curl -o  /tmp/taglib.tar.gz -L  http://taglib.github.io/releases/taglib-1.9.1.tar.gz && \
+curl -o /tmp/libevent.tar.gz  -L https://qa.debian.org/watch/sf.php/levent/libevent-2.1.5-beta.tar.gz && \
+curl -o /tmp/sqlite.tar.gz -L http://www.sqlite.org/sqlite-amalgamation-3.7.2.tar.gz && \
+tar xvf /tmp/curl.tar.gz -C /tmp/curl --strip-components=1 && \
+tar xvf /tmp/taglib.tar.gz -C /tmp/taglib --strip-components=1 && \
+tar xvf /tmp/libevent.tar.gz -C /tmp/libevent --strip-components=1 && \
+tar xvf /tmp/sqlite.tar.gz -C /tmp/sqlite --strip-components=1 && \
+git clone https://github.com/FFmpeg/FFmpeg.git /tmp/FFmpeg && \
+git clone https://github.com/ejurgensen/forked-daapd.git /tmp/forked-daapd && \
+
 # build curl package
-cd /tmp && \
-wget http://curl.haxx.se/download/curl-7.43.0.tar.gz && \
-tar xvf curl-* && \
-cd curl-* && \
+cd /tmp/curl && \
 ./configure \
 --prefix=/usr \
 --with-ssl \
@@ -31,38 +41,27 @@ make && \
 make install && \
 
 # build taglib package
-cd /tmp && \
-wget http://taglib.github.io/releases/taglib-1.9.1.tar.gz && \
-tar xvf taglib-* && \
-cd taglib-* && \
+cd /tmp/taglib && \
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_RELEASE_TYPE=Release . && \
 make && \
 make install && \
 ldconfig && \
 
 # build libevent package
-cd /tmp && \
-wget --no-check-certificate https://qa.debian.org/watch/sf.php/levent/libevent-2.1.5-beta.tar.gz && \
-tar xvf libevent-* && \
-cd libevent-*  && \
+cd /tmp/libevent && \
 ./configure && \
 make && \
 make install && \
 
 # build sqlite package
-cd /tmp && \
-wget http://www.sqlite.org/sqlite-amalgamation-3.7.2.tar.gz && \
-tar xvf sqlite-* && \
-cd sqlite-* && \
+cd /tmp/sqlite && \
 mv /prebuild/Makefile.*  . && \
 ./configure && \
 make && \
 make install && \
 
 # build ffmpeg package
-cd /tmp && \
-git clone https://github.com/FFmpeg/FFmpeg.git && \
-cd FFmpeg && \
+cd /tmp/FFmpeg && \
 ./configure \
 --prefix=/usr \
 --enable-nonfree \
@@ -73,9 +72,7 @@ make && \
 make install && \
 
 # configure and build forked-daapd
-cd /tmp && \
-git clone https://github.com/ejurgensen/forked-daapd.git && \
-cd forked-daapd && \
+cd /tmp/forked-daapd && \
 autoreconf -i && \
 ./configure \
 --enable-itunes \
@@ -97,6 +94,8 @@ apt-get -y autoremove && \
 apt-get update -q && \
 apt-get install \
 $APTLIST -qy && \
+
+# cleanup
 apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 # Adding Custom files
