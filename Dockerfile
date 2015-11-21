@@ -104,15 +104,15 @@ ADD services/ /etc/service/
 RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
 
 # tweak config for forked-daapd
-sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /etc/forked-daapd.conf && \
-sed -i s#"My Music on %h"#"LS.IO Music"#g /etc/forked-daapd.conf && \
-sed -i s#/srv/music#/music#g /etc/forked-daapd.conf && \
-sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /etc/forked-daapd.conf && \
-sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /etc/forked-daapd.conf && \
-sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /etc/forked-daapd.conf && \
-sed -i "/db_path\ =/ s/# *//" /etc/forked-daapd.conf && \
-sed -i "/cache_path\ =/ s/# *//" /etc/forked-daapd.conf && \
-cp /etc/forked-daapd.conf /defaults/forked-daapd.conf
+mv /etc/forked-daapd.conf /defaults/forked-daapd.conf && \
+sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /defaults/forked-daapd.conf && \
+sed -i s#"My Music on %h"#"LS.IO Music"#g /defaults/forked-daapd.conf && \
+sed -i s#/srv/music#/music#g /defaults/forked-daapd.conf && \
+sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /defaults/forked-daapd.conf && \
+sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /defaults/forked-daapd.conf && \
+sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /defaults/forked-daapd.conf && \
+sed -i "/db_path\ =/ s/# *//" /defaults/forked-daapd.conf && \
+sed -i "/cache_path\ =/ s/# *//" /defaults/forked-daapd.conf
 
 # set volumes
 VOLUME /config /music
