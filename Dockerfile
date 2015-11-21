@@ -1,13 +1,12 @@
 FROM linuxserver/baseimage
 MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
 
-ENV APTLIST="avahi-daemon libavahi-client3 libantlr3c-3.2-0 libasound2 \
-libconfuse0 libflac8 libgcrypt20 libmxml1 libogg0 libplist1 libunistring0"
+ENV APTLIST="avahi-daemon libavahi-client3 libav-tools libantlr3c-3.2-0 \
+libconfuse0 libgcrypt20 libmp3lame0 libmxml1 libplist1 libunistring0"
 
-ENV BUILD_APTLIST="antlr3 autoconf automake build-essential cmake gettext \
-git-core gperf libantlr3c-dev libasound2-dev libavahi-client-dev libconfuse-dev \ 
-libflac-dev libgcrypt20-dev libplist-dev libtool libunistring-dev libmxml-dev \
-wget yasm zlib1g-dev"
+ENV BUILD_APTLIST="antlr3 autoconf autotools-dev build-essential cmake gawk gettext git-core gperf libasound2-dev libantlr3c-dev \
+libavahi-client-dev  libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libconfuse-dev \
+libgcrypt11-dev libplist-dev libtool libunistring-dev libswscale-dev libmxml-dev zlib1g-dev"
 
 # set source versions
 ENV CURL_VER="7.45.0" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3090200"
@@ -17,7 +16,7 @@ ADD excludes /etc/dpkg/dpkg.cfg.d/excludes
 
 # install build dependencies
 RUN apt-get update && \
-apt-get install --no-install-recommends \
+apt-get install $APTLIST \
 $BUILD_APTLIST -qy && \
 
 # fetch source code
@@ -30,7 +29,6 @@ tar xvf /tmp/curl.tar.gz -C /tmp/curl --strip-components=1 && \
 tar xvf /tmp/taglib.tar.gz -C /tmp/taglib --strip-components=1 && \
 tar xvf /tmp/libevent.tar.gz -C /tmp/libevent --strip-components=1 && \
 tar xvf /tmp/sqlite.tar.gz -C /tmp/sqlite --strip-components=1 && \
-git clone https://github.com/FFmpeg/FFmpeg.git /tmp/FFmpeg && \
 git clone https://github.com/ejurgensen/forked-daapd.git /tmp/forked-daapd && \
 
 # build curl package
@@ -60,17 +58,6 @@ cd /tmp/sqlite && \
 sed -i '/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite/Makefile.in && \
 sed -i '/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite/Makefile.am && \
 ./configure && \
-make && \
-make install && \
-
-# build ffmpeg package
-cd /tmp/FFmpeg && \
-./configure \
---prefix=/usr \
---enable-nonfree \
---disable-static \
---enable-shared \
---disable-debug && \
 make && \
 make install && \
 
