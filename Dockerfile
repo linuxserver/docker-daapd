@@ -12,7 +12,7 @@ libgcrypt11-dev libplist-dev libtool libunistring-dev libswscale-dev libmxml-dev
 ENV CURL_VER="7.45.0" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3090200"
 
 # add excludes file
-ADD excludes /etc/dpkg/dpkg.cfg.d/excludes
+ADD defaults/excludes /etc/dpkg/dpkg.cfg.d/excludes
 
 # install build dependencies
 RUN apt-get update && \
