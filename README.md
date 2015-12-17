@@ -42,6 +42,6 @@ For further setup options of remotes etc, check out the daapd website, link abov
 
 
 ## Versions
-+ **17.12.2015:** Add in spotify release.
++ **17.12.2015:** Add in spotify support.
 + **25.11.2015:** Initial Release. 
 
