@@ -20,15 +20,17 @@ apt-get install $APTLIST \
 $BUILD_APTLIST -qy && \
 
 # fetch source code
-mkdir -p /tmp/curl /tmp/taglib /tmp/libevent /tmp/sqlite && \
+mkdir -p /tmp/curl /tmp/taglib /tmp/libevent /tmp/sqlite /tmp/spotify && \
 curl -o /tmp/curl.tar.gz -L http://curl.haxx.se/download/curl-$CURL_VER.tar.gz && \
 curl -o  /tmp/taglib.tar.gz -L  http://taglib.github.io/releases/taglib-$TAGLIB_VER.tar.gz && \
 curl -o /tmp/libevent.tar.gz  -L https://qa.debian.org/watch/sf.php/levent/libevent-$LIBEVENT_VER.tar.gz && \
 curl -o /tmp/sqlite.tar.gz -L https://www.sqlite.org/2015/sqlite-$SQLITE_VER.tar.gz && \
+curl -o /tmp/spotify_tar.gz -L https://developer.spotify.com/download/libspotify/libspotify-12.1.51-Linux-x86_64-release.tar.gz && \
 tar xvf /tmp/curl.tar.gz -C /tmp/curl --strip-components=1 && \
 tar xvf /tmp/taglib.tar.gz -C /tmp/taglib --strip-components=1 && \
 tar xvf /tmp/libevent.tar.gz -C /tmp/libevent --strip-components=1 && \
 tar xvf /tmp/sqlite.tar.gz -C /tmp/sqlite --strip-components=1 && \
+tar xvf /tmp/spotify_tar.gz -C /tmp/spotify --strip-components=1 && \
 git clone https://github.com/ejurgensen/forked-daapd.git /tmp/forked-daapd && \
 
 # build curl package
@@ -61,6 +63,10 @@ sed -i '/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite/Makefile
 make && \
 make install && \
 
+# build spotify
+cd /tmp/spotify && \
+make install prefix=/usr && \
+
 # configure and build forked-daapd
 cd /tmp/forked-daapd && \
 autoreconf -i && \
@@ -68,6 +74,7 @@ autoreconf -i && \
 --enable-itunes \
 --enable-mpd \
 --enable-lastfm \
+--enable-spotify \
 --prefix=/app \
 --sysconfdir=/etc \
 --localstatedir=/var && \
