@@ -1,8 +1,10 @@
 FROM linuxserver/baseimage
-MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
+MAINTAINER mike <mike@mike.io>
 
 ENV APTLIST="avahi-daemon libavahi-client3 libav-tools libantlr3c-3.2-0 \
-libconfuse0 libgcrypt20 libmp3lame0 libmxml1 libplist1 libunistring0"
+libconfuse0 libgcrypt20 libmp3lame0 libmxml1 libplist1 libunistring0 \
+alsa-utils alsa-base gstreamer0.10-alsa gstreamer1.0-alsa alsa-tools \
+libasound2 linux-sound-base"
 
 ENV BUILD_APTLIST="antlr3 autoconf autotools-dev build-essential cmake gawk gettext git-core gperf libasound2-dev libantlr3c-dev \
 libavahi-client-dev  libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libconfuse-dev \
@@ -103,8 +105,8 @@ RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
 # tweak config for forked-daapd
 mv /etc/forked-daapd.conf /defaults/forked-daapd.conf && \
 sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /defaults/forked-daapd.conf && \
-sed -i s#"My Music on %h"#"LS.IO Music"#g /defaults/forked-daapd.conf && \
-sed -i s#/srv/music#/music#g /defaults/forked-daapd.conf && \
+#sed -i s#"My Music on %h"#"LS.IO Music"#g /defaults/forked-daapd.conf && \
+#sed -i s#/srv/music#/music#g /defaults/forked-daapd.conf && \
 sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /defaults/forked-daapd.conf && \
 sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /defaults/forked-daapd.conf && \
 sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /defaults/forked-daapd.conf && \

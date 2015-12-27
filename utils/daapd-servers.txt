@@ -1,0 +1,3 @@
+DAAPD name;Media directories
+%h: Trance;/srv/music
+%h: Radio;/srv/music

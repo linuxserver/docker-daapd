@@ -20,6 +20,9 @@ docker create --name=daapd -v /etc/localtime:/etc/localtime:ro -v <path to data>
 * `-v /music` - map to your music folder
 * `-e PGID` for GroupID - see below for explanation
 * `-e PUID` for UserID - see below for explanation
+* `-e DAAPD_NAME` - the library name of the daapd server - *optional*
+* `-e DAAPD_PORT` - the port number of the daapd server - *optional* 
+* `-e MPD_PORT` - the port number of the mpd server - *optional*
 
 It is based on phusion-baseimage with ssh removed, for shell access whilst the container is running do `docker exec -it daapd /bin/bash`.
 
@@ -39,6 +42,10 @@ For further setup options of remotes etc, check out the daapd website, link abov
 
 * To monitor the logs of the container in realtime `docker logs -f daapd`.
 
+
+## Mutliple daapd instances
+
+* To create multiple instances of forked-daapd on a single host, you may want to check out: https://github.com/mike-seger/docker-daapd/tree/master/utils/multidaapd.sh. Having multiple instances allows e.g. multiple users on the same network to have their own libraries.
 
 
 ## Versions
