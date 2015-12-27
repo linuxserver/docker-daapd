@@ -20,6 +20,9 @@ docker create --name=daapd -v /etc/localtime:/etc/localtime:ro -v <path to data>
 * `-v /music` - map to your music folder
 * `-e PGID` for GroupID - see below for explanation
 * `-e PUID` for UserID - see below for explanation
+* `-e DAAPD_NAME` - the library name of the daapd server - *optional*
+* `-e DAAPD_PORT` - the port number of the daapd server - *optional* 
+* `-e MPD_PORT` - the port number of the mpd server - *optional*
 
 It is based on phusion-baseimage with ssh removed, for shell access whilst the container is running do `docker exec -it daapd /bin/bash`.
 
