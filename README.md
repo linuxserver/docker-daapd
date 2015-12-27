@@ -43,6 +43,10 @@ For further setup options of remotes etc, check out the daapd website, link abov
 * To monitor the logs of the container in realtime `docker logs -f daapd`.
 
 
+## Mutliple daapd instances
+
+* To create multiple instances of forked-daapd on a single host, you may want to check out: https://github.com/mike-seger/docker-daapd/tree/master/utils/multidaapd.sh. Having multiple instances allows e.g. multiple users on the same network to have their own libraries.
+
 
 ## Versions
 + **17.12.2015:** Add in spotify support.
