@@ -42,6 +42,7 @@ For further setup options of remotes etc, check out the daapd website, link abov
 
 
 ## Versions
++ **04.01.2016:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
 + **17.12.2015:** Add in spotify support.
 + **25.11.2015:** Initial Release. 
 
