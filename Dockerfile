@@ -104,6 +104,7 @@ RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
 mv /etc/forked-daapd.conf /defaults/forked-daapd.conf && \
 sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /defaults/forked-daapd.conf && \
 sed -i s#"My Music on %h"#"LS.IO Music"#g /defaults/forked-daapd.conf && \
+sed -i s#"ivp6 = yes"#"ivp6 = no"#g /defaults/forked-daapd.conf && \
 sed -i s#/srv/music#/music#g /defaults/forked-daapd.conf && \
 sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /defaults/forked-daapd.conf && \
 sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /defaults/forked-daapd.conf && \
