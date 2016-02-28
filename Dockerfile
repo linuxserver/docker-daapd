@@ -2,16 +2,16 @@ FROM linuxserver/baseimage
 MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
 
 ENV APTLIST="avahi-daemon libavahi-client3 libav-tools libantlr3c-3.2-0 \
-libconfuse0 libgcrypt20 libgnutls28 libjson0 libmp3lame0 libprotobuf8 \
+libconfuse0 libgcrypt20 libgnutls28 libjson0 libmp3lame0 libprotobuf-c0 \
 libmxml1 libplist1 libunistring0"
 
-ENV BUILD_APTLIST="antlr3 autoconf autotools-dev build-essential cmake gawk gettext git-core gperf \
+ENV BUILD_APTLIST="antlr3 autoconf autotools-dev automake build-essential cmake gawk gettext git-core gperf \
 libasound2-dev libantlr3c-dev libavahi-client-dev  libavcodec-dev libavfilter-dev libavformat-dev \
-libavutil-dev libconfuse-dev libgcrypt11-dev libgnutls28-dev libjson0-dev libplist-dev libprotobuf-dev \
-libtool libunistring-dev libswscale-dev libmxml-dev zlib1g-dev"
+libavutil-dev libconfuse-dev libgcrypt11-dev libgnutls28-dev libjson0-dev libplist-dev libprotobuf-c0-dev \
+libtool libunistring-dev libswscale-dev libmxml-dev readline zlib1g-dev"
 
 # set source versions
-ENV CURL_VER="7.45.0" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3090200"
+ENV CURL_VER="7.47.1" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3110000"
 
 # add excludes file
 ADD defaults/excludes /etc/dpkg/dpkg.cfg.d/excludes
@@ -26,7 +26,7 @@ mkdir -p /tmp/curl /tmp/taglib /tmp/libevent /tmp/sqlite /tmp/spotify && \
 curl -o /tmp/curl.tar.gz -L http://curl.haxx.se/download/curl-$CURL_VER.tar.gz && \
 curl -o  /tmp/taglib.tar.gz -L  http://taglib.github.io/releases/taglib-$TAGLIB_VER.tar.gz && \
 curl -o /tmp/libevent.tar.gz  -L https://qa.debian.org/watch/sf.php/levent/libevent-$LIBEVENT_VER.tar.gz && \
-curl -o /tmp/sqlite.tar.gz -L https://www.sqlite.org/2015/sqlite-$SQLITE_VER.tar.gz && \
+curl -o /tmp/sqlite.tar.gz -L https://www.sqlite.org/2016/sqlite-$SQLITE_VER.tar.gz && \
 curl -o /tmp/spotify_tar.gz -L https://developer.spotify.com/download/libspotify/libspotify-12.1.51-Linux-x86_64-release.tar.gz && \
 tar xvf /tmp/curl.tar.gz -C /tmp/curl --strip-components=1 && \
 tar xvf /tmp/taglib.tar.gz -C /tmp/taglib --strip-components=1 && \
