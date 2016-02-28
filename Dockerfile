@@ -2,11 +2,13 @@ FROM linuxserver/baseimage
 MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
 
 ENV APTLIST="avahi-daemon libavahi-client3 libav-tools libantlr3c-3.2-0 \
-libconfuse0 libgcrypt20 libmp3lame0 libmxml1 libplist1 libunistring0"
+libconfuse0 libgcrypt20 libgnutls28 libjsoncpp0 libmp3lame0 libprotobuf8 \
+libmxml1 libplist1 libunistring0"
 
-ENV BUILD_APTLIST="antlr3 autoconf autotools-dev build-essential cmake gawk gettext git-core gperf libasound2-dev libantlr3c-dev \
-libavahi-client-dev  libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libconfuse-dev \
-libgcrypt11-dev libplist-dev libtool libunistring-dev libswscale-dev libmxml-dev zlib1g-dev"
+ENV BUILD_APTLIST="antlr3 autoconf autotools-dev build-essential cmake gawk gettext git-core gperf \
+libasound2-dev libantlr3c-dev libavahi-client-dev  libavcodec-dev libavfilter-dev libavformat-dev \
+libavutil-dev libconfuse-dev libgcrypt11-dev libgnutls28-dev libjsoncpp-dev libplist-dev libprotobuf-dev \
+libtool libunistring-dev libswscale-dev libmxml-dev zlib1g-dev"
 
 # set source versions
 ENV CURL_VER="7.45.0" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3090200"
@@ -75,6 +77,7 @@ autoreconf -i && \
 --enable-mpd \
 --enable-lastfm \
 --enable-spotify \
+--enable-chromecast \
 --prefix=/app \
 --sysconfdir=/etc \
 --localstatedir=/var && \
