@@ -8,7 +8,7 @@ libmxml1 libplist1 libunistring0"
 ENV BUILD_APTLIST="antlr3 autoconf autotools-dev automake build-essential cmake gawk gettext git-core gperf \
 libasound2-dev libantlr3c-dev libavahi-client-dev  libavcodec-dev libavfilter-dev libavformat-dev \
 libavutil-dev libconfuse-dev libgcrypt11-dev libgnutls28-dev libjson0-dev libplist-dev libprotobuf-c0-dev \
-libtool libunistring-dev libswscale-dev libmxml-dev readline zlib1g-dev"
+libreadline-dev libtool libunistring-dev libswscale-dev libmxml-dev zlib1g-dev"
 
 # set source versions
 ENV CURL_VER="7.47.1" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3110000"
