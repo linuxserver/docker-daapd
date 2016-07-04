@@ -1,0 +1,8 @@
+	--enable-itunes \
+	--enable-mpd \
+	--enable-lastfm \
+	--enable-spotify \
+	--enable-chromecast \
+	--prefix=/app \
+	--sysconfdir=/etc \
+	--localstatedir=/var \

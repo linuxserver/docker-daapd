@@ -14,9 +14,13 @@ DAAP (iTunes) media server with support for AirPlay devices, Apple Remote (and c
 ## Usage
 
 ```
-docker create --name=daapd -v <path to data>:/config \
--v <path to music>:/music -e PGID=<gid> -e PUID=<uid>  \
---net=host lsiodev/daapd
+docker create \
+--name=daapd \
+-v <path to data>:/config \
+-v <path to music>:/music \
+-e PGID=<gid> -e PUID=<uid>  \
+--net=host \
+lsiodev/daapd
 ```
 
 **Parameters**
@@ -27,7 +31,7 @@ docker create --name=daapd -v <path to data>:/config \
 * `-e PGID` for GroupID - see below for explanation
 * `-e PUID` for UserID - see below for explanation
 
-It is based on phusion-baseimage with ssh removed, for shell access whilst the container is running do `docker exec -it daapd /bin/bash`.
+It is based on ubuntu xenial with s6 overlay, for shell access whilst the container is running do `docker exec -it daapd /bin/bash`.
 
 ### User / Group Identifiers
 
@@ -51,8 +55,10 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 
 ## Versions
-+ **28.02.2016:** Add chromecast support, bump dependency versions.
-+ **04.01.2016:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
-+ **17.12.2015:** Add in spotify support.
-+ **25.11.2015:** Initial Release. 
+
++ **04.07.16:** Rebase to ubuntu xenial.
++ **28.02.16:** Add chromecast support, bump dependency versions.
++ **04.01.16:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
++ **17.12.15:** Add in spotify support.
++ **25.11.15:** Initial Release. 
 
