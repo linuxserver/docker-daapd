@@ -1,6 +1,9 @@
 FROM lsiobase/xenial
 MAINTAINER sparklyballs
 
+# add excludes
+COPY excludes /etc/dpkg/dpkg.cfg.d/excludes
+
 # set source versions
 ARG CURL_VER="7.49.1"
 ARG FORKED_VER="24.1"
@@ -65,8 +68,9 @@ ARG RUNTIME_PACKAGES="\
 RUN \
  apt-get update && \
  apt-get install -y \
-	${BUILD_PACKAGES} \
-	${RUNTIME_PACKAGES} && \
+ 	--no-install-recommends \
+		${BUILD_PACKAGES} \
+		${RUNTIME_PACKAGES} && \
 
 # make folders for source codes
  mkdir -p \
