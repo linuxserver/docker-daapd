@@ -1,120 +1,200 @@
-FROM linuxserver/baseimage
-MAINTAINER sparklyballs <sparklyballs@linuxserver.io>
+FROM lsiobase/xenial
+MAINTAINER sparklyballs
 
-ENV APTLIST="avahi-daemon libavahi-client3 libav-tools libantlr3c-3.2-0 \
-libconfuse0 libgcrypt20 libgnutls28 libjson0 libmp3lame0 libprotobuf-c0 \
-libmxml1 libplist1 libunistring0"
+# add excludes
+COPY excludes /etc/dpkg/dpkg.cfg.d/excludes
 
-ENV BUILD_APTLIST="antlr3 autoconf autotools-dev automake build-essential cmake gawk gettext git-core gperf \
-libasound2-dev libantlr3c-dev libavahi-client-dev  libavcodec-dev libavfilter-dev libavformat-dev \
-libavutil-dev libconfuse-dev libgcrypt11-dev libgnutls28-dev libjson0-dev libplist-dev libprotobuf-c0-dev \
-libreadline-dev libtool libunistring-dev libswscale-dev libmxml-dev zlib1g-dev"
+# set source versions
+ARG CURL_VER="7.49.1"
+ARG FORKED_VER="24.1"
+ARG LIBEVENT_VER="2.1.5-beta"
+ARG SQLITE_VER="autoconf-3130000"
+ARG TAGLIB_VER="1.9.1"
 
-# set source versions
-ENV CURL_VER="7.47.1" LIBEVENT_VER="2.1.5-beta" TAGLIB_VER="1.9.1" SQLITE_VER="autoconf-3110000"
+# package variables and environment settings
+ARG DEBIAN_FRONTEND="noninteractive"
+ARG BUILD_PACKAGES="\
+	antlr3 \
+	autoconf \
+	automake \
+	autotools-dev \
+	binutils \
+	cmake \
+	g++ \
+	gcc \
+	gawk \
+	gettext \
+	git-core \
+	gperf \
+	libantlr3c-dev \
+	libasound2-dev \
+	libavahi-client-dev  \
+	libavcodec-dev \
+	libavfilter-dev \
+	libavformat-dev \
+	libavutil-dev \
+	libconfuse-dev \
+	libgcrypt20-dev \
+	libgnutls-dev \
+	libjson-c-dev \
+	libmxml-dev \
+	libplist-dev \
+	libprotobuf-c-dev \
+	libreadline-dev \
+	libssh-dev \
+	libswscale-dev \
+	libtool \
+	libunistring-dev \
+	make \
+	wget \
+	zlib1g-dev"
+ARG RUNTIME_PACKAGES="\
+	avahi-daemon \
+	libantlr3c-3.2-0 \
+	libavahi-client3 \
+	libav-tools \
+	libconfuse0 \
+	libgcrypt20 \
+	libgnutlsxx28 \
+	libjson-c2 \
+	libmp3lame0 \
+	libmxml1 \
+	libplist3 \
+	libprotobuf-c1 \
+	libunistring0 \
+	openssl"
 
-# add excludes file
-ADD defaults/excludes /etc/dpkg/dpkg.cfg.d/excludes
+# install build and runtime dependencies
+RUN \
+ apt-get update && \
+ apt-get install -y \
+ 	--no-install-recommends \
+		${BUILD_PACKAGES} \
+		${RUNTIME_PACKAGES} && \
 
-# install build dependencies
-RUN apt-get update && \
-apt-get install $APTLIST \
-$BUILD_APTLIST -qy && \
+# make folders for source codes
+ mkdir -p \
+	/tmp/curl-source \
+	/tmp/forked-source \
+	/tmp/libevent-source \
+	/tmp/spotify-source \
+	/tmp/sqlite-source \
+	/tmp/taglib-source && \
 
-# fetch source code
-mkdir -p /tmp/curl /tmp/taglib /tmp/libevent /tmp/sqlite /tmp/spotify && \
-curl -o /tmp/curl.tar.gz -L http://curl.haxx.se/download/curl-$CURL_VER.tar.gz && \
-curl -o  /tmp/taglib.tar.gz -L  http://taglib.github.io/releases/taglib-$TAGLIB_VER.tar.gz && \
-curl -o /tmp/libevent.tar.gz  -L https://qa.debian.org/watch/sf.php/levent/libevent-$LIBEVENT_VER.tar.gz && \
-curl -o /tmp/sqlite.tar.gz -L https://www.sqlite.org/2016/sqlite-$SQLITE_VER.tar.gz && \
-curl -o /tmp/spotify_tar.gz -L https://developer.spotify.com/download/libspotify/libspotify-12.1.51-Linux-x86_64-release.tar.gz && \
-tar xvf /tmp/curl.tar.gz -C /tmp/curl --strip-components=1 && \
-tar xvf /tmp/taglib.tar.gz -C /tmp/taglib --strip-components=1 && \
-tar xvf /tmp/libevent.tar.gz -C /tmp/libevent --strip-components=1 && \
-tar xvf /tmp/sqlite.tar.gz -C /tmp/sqlite --strip-components=1 && \
-tar xvf /tmp/spotify_tar.gz -C /tmp/spotify --strip-components=1 && \
-git clone https://github.com/ejurgensen/forked-daapd.git /tmp/forked-daapd && \
+# fetch source codes
+ curl -o \
+ /tmp/curl.tar.gz -L \
+	http://curl.haxx.se/download/curl-"${CURL_VER}".tar.gz && \
+ curl -o \
+ /tmp/forked.tar.gz -L \
+	https://github.com/ejurgensen/forked-daapd/archive/"${FORKED_VER}".tar.gz && \
+ curl -o \
+ /tmp/libevent.tar.gz  -L \
+	https://qa.debian.org/watch/sf.php/levent/libevent-"${LIBEVENT_VER}".tar.gz && \
+ curl -o \
+ /tmp/spotify_tar.gz -L \
+	https://developer.spotify.com/download/libspotify/libspotify-12.1.51-Linux-x86_64-release.tar.gz && \
+ curl -o \
+ /tmp/sqlite.tar.gz -L \
+	https://www.sqlite.org/2016/sqlite-"${SQLITE_VER}".tar.gz && \
+ curl -o  \
+ /tmp/taglib.tar.gz -L  \
+	http://taglib.github.io/releases/taglib-$TAGLIB_VER.tar.gz && \
 
-# build curl package
-cd /tmp/curl && \
-./configure \
---prefix=/usr \
---with-ssl \
---with-zlib && \
-make && \
-make install && \
+# unpack source codes
+ tar xvf \
+ /tmp/curl.tar.gz -C \
+	/tmp/curl-source --strip-components=1 && \
+ tar xvf \
+ /tmp/forked.tar.gz -C \
+	/tmp/forked-source --strip-components=1 && \
+ tar xvf \
+ /tmp/libevent.tar.gz -C \
+	/tmp/libevent-source --strip-components=1 && \
+ tar xvf \
+ /tmp/spotify_tar.gz -C \
+	/tmp/spotify-source --strip-components=1 && \
+ tar xvf \
+ /tmp/sqlite.tar.gz -C \
+	/tmp/sqlite-source --strip-components=1 && \
+ tar xvf \
+ /tmp/taglib.tar.gz -C \
+	/tmp/taglib-source  --strip-components=1 && \
 
-# build taglib package
-cd /tmp/taglib && \
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_RELEASE_TYPE=Release . && \
-make && \
-make install && \
-ldconfig && \
+# build curl package
+ cd /tmp/curl-source && \
+ ./configure \
+	--prefix=/usr \
+	--with-ssl \
+	--with-zlib && \
+ make && \
+ make install && \
+
+# build taglib package
+ cd /tmp/taglib-source && \
+ cmake \
+	-DCMAKE_INSTALL_PREFIX=/usr/local \
+	-DCMAKE_RELEASE_TYPE=Release . && \
+ make && \
+ make install && \
+ ldconfig && \
 
 # build libevent package
-cd /tmp/libevent && \
-./configure && \
-make && \
-make install && \
+ cd /tmp/libevent-source && \
+ ./configure && \
+ make && \
+ make install && \
 
 # build sqlite package
-cd /tmp/sqlite && \
-sed -i '/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite/Makefile.in && \
-sed -i '/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite/Makefile.am && \
-./configure && \
-make && \
-make install && \
+ cd /tmp/sqlite-source && \
+ sed -i \
+	'/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite-source/Makefile.in && \
+ sed -i \
+	'/^AM_CFLAGS =/ s/$/ -DSQLITE_ENABLE_UNLOCK_NOTIFY/' /tmp/sqlite-source/Makefile.am && \
+ ./configure && \
+ make && \
+ make install && \
 
 # build spotify
-cd /tmp/spotify && \
-make install prefix=/usr && \
+ cd /tmp/spotify-source && \
+ make install \
+	prefix=/usr && \
 
 # configure and build forked-daapd
-cd /tmp/forked-daapd && \
-autoreconf -i && \
-./configure \
---enable-itunes \
---enable-mpd \
---enable-lastfm \
---enable-spotify \
---enable-chromecast \
---prefix=/app \
---sysconfdir=/etc \
---localstatedir=/var && \
-make && \
-make install && \
-cd / && \
+ cd /tmp/forked-source && \
+ autoreconf -i && \
+ ./configure \
+	--enable-chromecast \
+	--enable-itunes \
+	--enable-lastfm \
+	--enable-mpd \
+	--enable-spotify \
+	--localstatedir=/var \
+	--prefix=/app \
+	--sysconfdir=/etc && \
+ make && \
+ make install && \
 
 # clean build dependencies
-apt-get purge --remove \
-$BUILD_APTLIST -y && \
-apt-get -y autoremove && \
+ apt-get purge --remove -y \
+	${BUILD_PACKAGES} && \
+ apt-get autoremove -y && \
+ apt-get autoclean -y && \
 
-# install runtime dependencies
-apt-get update -q && \
-apt-get install \
-$APTLIST -qy && \
+# reinstall runtime dependencies, above purge may have deleted needed packages.
+ apt-get update && \
+ apt-get install -y \
+	${RUNTIME_PACKAGES} && \
 
-# cleanup
-apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
+# cleanup
+ apt-get clean && \
+ rm -rf \
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
-# Adding Custom files
-ADD init/ /etc/my_init.d/
-ADD services/ /etc/service/
-RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
+# add local files
+COPY root/ /
 
-# tweak config for forked-daapd
-mv /etc/forked-daapd.conf /defaults/forked-daapd.conf && \
-sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /defaults/forked-daapd.conf && \
-sed -i s#"My Music on %h"#"LS.IO Music"#g /defaults/forked-daapd.conf && \
-sed -i s#"ipv6 = yes"#"ipv6 = no"#g /defaults/forked-daapd.conf && \
-sed -i s#/srv/music#/music#g /defaults/forked-daapd.conf && \
-sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /defaults/forked-daapd.conf && \
-sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /defaults/forked-daapd.conf && \
-sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /defaults/forked-daapd.conf && \
-sed -i "/db_path\ =/ s/# *//" /defaults/forked-daapd.conf && \
-sed -i "/cache_path\ =/ s/# *//" /defaults/forked-daapd.conf
-
-# set volumes
+# ports and volumes
 VOLUME /config /music
-

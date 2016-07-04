@@ -1,2 +1,0 @@
-#!/bin/bash
-exec /sbin/setuser abc /app/sbin/forked-daapd -f -P /daapd-pidfolder/forked-daapd.pid

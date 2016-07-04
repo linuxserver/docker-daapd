@@ -11,3 +11,4 @@ path-exclude /usr/share/linda/*
 path-exclude=/usr/share/locale/*
 path-include=/usr/share/locale/en/*
 path-include=/usr/share/locale/locale.alias
+

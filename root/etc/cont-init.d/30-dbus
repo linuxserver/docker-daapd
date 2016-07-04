@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bash
 
 [[ -e /var/run/dbus/pid ]] && rm -f /var/run/dbus/pid
 
