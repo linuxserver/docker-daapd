@@ -1,0 +1,25 @@
+#!/usr/bin/with-contenv bash
+
+# configure defaults copy of conf
+if [ ! -e "/defaults/forked-daapd.conf" ]; then
+cp /etc/forked-daapd.conf.orig /defaults/forked-daapd.conf
+sed -i -e 's/\(uid.*=\).*/\1 \"abc\"/g' /defaults/forked-daapd.conf
+sed -i s#"My Music on %h"#"LS.IO Music"#g /defaults/forked-daapd.conf
+sed -i s#"ipv6 = yes"#"ipv6 = no"#g /defaults/forked-daapd.conf
+sed -i s#/srv/music#/music#g /defaults/forked-daapd.conf
+sed -i s#/var/cache/forked-daapd/songs3.db#/config/dbase_and_logs/songs3.db#g /defaults/forked-daapd.conf
+sed -i s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g /defaults/forked-daapd.conf
+sed -i s#/var/log/forked-daapd.log#/config/dbase_and_logs/forked-daapd.log#g /defaults/forked-daapd.conf
+sed -i "/db_path\ =/ s/# *//" /defaults/forked-daapd.conf
+sed -i "/cache_path\ =/ s/# *//" /defaults/forked-daapd.conf
+fi
+
+# symlink conf to /conf
+[[ ! -f /config/forked-daapd.conf ]] && cp /defaults/forked-daapd.conf /config/forked-daapd.conf
+[[ ! -L /etc/forked-daapd.conf && -f /etc/forked-daapd.conf ]] && rm /etc/forked-daapd.conf
+[[ ! -L /etc/forked-daapd.conf ]] && ln -s /config/forked-daapd.conf /etc/forked-daapd.conf
+
+# make folders and set permissions
+mkdir -p /config/dbase_and_logs /daapd-pidfolder
+chown -R abc:abc /config /daapd-pidfolder /app
+
