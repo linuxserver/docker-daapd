@@ -6,9 +6,9 @@ ARG FORKED_DAAPD_NAME="forked-daapd"
 ARG FORKED_DAAPD_VER="24.1"
 
 # environment settings
-ARG ALL_SRC="/tmp/source"
 ARG ANTLR_WWW="http://www.antlr3.org/download/antlr-3.4-complete.jar"
-ARG FORKED_DAAPD_SRC="${ALL_SRC}/${FORKED_DAAPD_NAME}-${FORKED_DAAPD_VER}"
+ARG FORKED_DAAPD_ROOT="/tmp/source"
+ARG FORKED_DAAPD_SRC="${FORKED_DAAPD_ROOT}/forked-daapd"
 ARG FORKED_DAAPD_WWW="https://github.com/ejurgensen/forked-daapd/archive/${FORKED_DAAPD_VER}.tar.gz"
 
 # install build packages
@@ -55,23 +55,23 @@ RUN \
  mkdir -p \
 	"${FORKED_DAAPD_SRC}" && \
  echo \
-	"#!/bin/bash" > "${ALL_SRC}/antlr3" && \
+	"#!/bin/bash" > "${FORKED_DAAPD_ROOT}/antlr3" && \
  echo \
-	"exec java -cp $ALL_SRC/antlr-3.4-complete.jar org.antlr.Tool \"\$@\"" >> "${ALL_SRC}/antlr3" && \
- chmod a+x "${ALL_SRC}/antlr3" && \
+	"exec java -cp $FORKED_DAAPD_ROOT/antlr-3.4-complete.jar org.antlr.Tool \"\$@\"" >> "${FORKED_DAAPD_ROOT}/antlr3" && \
+ chmod a+x "${FORKED_DAAPD_ROOT}/antlr3" && \
 
 # fetch source
  curl -o \
- "${ALL_SRC}/antlr-3.4-complete.jar" -L \
+ "${FORKED_DAAPD_ROOT}/antlr-3.4-complete.jar" -L \
 	"${ANTLR_WWW}" && \
  curl -o \
- "${ALL_SRC}/${FORKED_DAAPD_NAME}-${FORKED_DAAPD_VER}.tar.gz" -L \
+ "${FORKED_DAAPD_ROOT}/forked.tar.gz" -L \
 	"${FORKED_DAAPD_WWW}" && \
- tar xf "${ALL_SRC}/${FORKED_DAAPD_NAME}-${FORKED_DAAPD_VER}.tar.gz" -C \
+ tar xf "${FORKED_DAAPD_ROOT}/forked.tar.gz" -C \
 	"${FORKED_DAAPD_SRC}" --strip-components=1 && \
 
 # configure and compile source
- export PATH="$ALL_SRC:$PATH" && \
+ export PATH="$FORKED_DAAPD_ROOT:$PATH" && \
  cd "${FORKED_DAAPD_SRC}" && \
  autoreconf -i -v && \
  ./configure \
