@@ -8,7 +8,7 @@ The [LinuxServer.io](https://linuxserver.io) team brings you another container r
 # lsiodev/daapd
 ![](https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png)
 
-DAAP (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Spotify, Chromecast, MPD and internet radio. [Forked-daapd](https://ejurgensen.github.io/forked-daapd/)
+DAAP (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio. [Forked-daapd](https://ejurgensen.github.io/forked-daapd/)
 
 
 ## Usage
@@ -55,9 +55,8 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 
 ## Versions
-+ **10.07.16:** Rebase to alpine linux for smaller image.
++ **13.08.16:** Rebase to alpine linux.
 + **28.02.16:** Add chromecast support, bump dependency versions.
 + **04.01.16:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
 + **17.12.15:** Add in spotify support.
-+ **25.11.15:** Initial Release. 
-
++ **25.11.15:** Initial Release.

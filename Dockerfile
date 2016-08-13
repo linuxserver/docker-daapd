@@ -2,14 +2,7 @@ FROM lsiobase/alpine
 MAINTAINER sparklyballs
 
 # package version
-ARG FORKED_DAAPD_NAME="forked-daapd"
-ARG FORKED_DAAPD_VER="24.1"
-
-# environment settings
-ARG ANTLR_WWW="http://www.antlr3.org/download/antlr-3.4-complete.jar"
-ARG FORKED_DAAPD_ROOT="/tmp/source"
-ARG FORKED_DAAPD_SRC="${FORKED_DAAPD_ROOT}/forked-daapd"
-ARG FORKED_DAAPD_WWW="https://github.com/ejurgensen/forked-daapd/archive/${FORKED_DAAPD_VER}.tar.gz"
+ARG DAAPD_VER="24.1"
 
 # install build packages
 RUN \
@@ -53,26 +46,26 @@ RUN \
 
 # make folders and antlr wrapper
  mkdir -p \
-	"${FORKED_DAAPD_SRC}" && \
+	/tmp/source/forked-daapd && \
  echo \
-	"#!/bin/bash" > "${FORKED_DAAPD_ROOT}/antlr3" && \
+	"#!/bin/bash" > /tmp/source/antlr3 && \
  echo \
-	"exec java -cp $FORKED_DAAPD_ROOT/antlr-3.4-complete.jar org.antlr.Tool \"\$@\"" >> "${FORKED_DAAPD_ROOT}/antlr3" && \
- chmod a+x "${FORKED_DAAPD_ROOT}/antlr3" && \
+	"exec java -cp /tmp/source/antlr-3.4-complete.jar org.antlr.Tool \"\$@\"" >> /tmp/source/antlr3 && \
+ chmod a+x /tmp/source/antlr3 && \
 
 # fetch source
  curl -o \
- "${FORKED_DAAPD_ROOT}/antlr-3.4-complete.jar" -L \
-	"${ANTLR_WWW}" && \
+ /tmp/source/antlr-3.4-complete.jar -L \
+	http://www.antlr3.org/download/antlr-3.4-complete.jar && \
  curl -o \
- "${FORKED_DAAPD_ROOT}/forked.tar.gz" -L \
-	"${FORKED_DAAPD_WWW}" && \
- tar xf "${FORKED_DAAPD_ROOT}/forked.tar.gz" -C \
-	"${FORKED_DAAPD_SRC}" --strip-components=1 && \
+ /tmp/source/forked.tar.gz -L \
+	"https://github.com/ejurgensen/forked-daapd/archive/${DAAPD_VER}.tar.gz" && \
+ tar xf /tmp/source/forked.tar.gz -C \
+	/tmp/source/forked-daapd --strip-components=1 && \
 
 # configure and compile source
- export PATH="$FORKED_DAAPD_ROOT:$PATH" && \
- cd "${FORKED_DAAPD_SRC}" && \
+ export PATH="/tmp/source:$PATH" && \
+ cd /tmp/source/forked-daapd && \
  autoreconf -i -v && \
  ./configure \
 	--build=$CBUILD \
