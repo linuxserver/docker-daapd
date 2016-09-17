@@ -11,6 +11,8 @@ The [LinuxServer.io][linuxserverurl] team brings you another container release f
 * [Podcast][podcasturl] covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
 
 # linuxserver/daapd
+[![](https://images.microbadger.com/badges/image/linuxserver/daapd.svg)](https://microbadger.com/images/linuxserver/daapd "Get your own image badge on microbadger.com")[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/daapd.svg)][hub][![Docker Stars](https://img.shields.io/docker/stars/linuxserver/daapd.svg)][hub][![Build Status](http://jenkins.linuxserver.io:8080/buildStatus/icon?job=Dockers/LinuxServer.io/linuxserver-daapd)](http://jenkins.linuxserver.io:8080/job/Dockers/job/LinuxServer.io/job/linuxserver-daapd/)
+[hub]: https://hub.docker.com/r/linuxserver/daapd/
 
 [Forked-Daapd][daapdurl] (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.
 
@@ -61,7 +63,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 
 ## Versions
-+ **17.08.16:** Rebase to alpine linux, remove redundant spotify support.
++ **17.09.16:** Rebase to alpine linux, remove redundant spotify support, move to main repository
 + **28.02.16:** Add chromecast support, bump dependency versions.
 + **04.01.16:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
 + **17.12.15:** Add in spotify support.
