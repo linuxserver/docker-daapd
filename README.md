@@ -1,15 +1,21 @@
-![https://linuxserver.io](https://www.linuxserver.io/wp-content/uploads/2015/06/linuxserver_medium.png)
+[linuxserverurl]: https://linuxserver.io
+[forumurl]: https://forum.linuxserver.io
+[ircurl]: https://www.linuxserver.io/index.php/irc/
+[podcasturl]: https://www.linuxserver.io/index.php/category/podcast/
 
-The [LinuxServer.io](https://linuxserver.io) team brings you another container release featuring easy user mapping and community support. Find us for support at:
-* [forum.linuxserver.io](https://forum.linuxserver.io)
-* [IRC](https://www.linuxserver.io/index.php/irc/) on freenode at `#linuxserver.io`
-* [Podcast](https://www.linuxserver.io/index.php/category/podcast/) covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
+[![linuxserver.io](https://www.linuxserver.io/wp-content/uploads/2015/06/linuxserver_medium.png)][linuxserverurl]
 
-# lsiodev/daapd
-![](https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png)
+The [LinuxServer.io][linuxserverurl] team brings you another container release featuring easy user mapping and community support. Find us for support at:
+* [forum.linuxserver.io][forumurl]
+* [IRC][ircurl] on freenode at `#linuxserver.io`
+* [Podcast][podcasturl] covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
 
-DAAP (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio. [Forked-daapd](https://ejurgensen.github.io/forked-daapd/)
+# linuxserver/daapd
 
+[Forked-Daapd][daapdurl] (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.
+
+[![daapd](https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png)][daapdurl]
+[daapdurl]: https://ejurgensen.github.io/forked-daapd/
 
 ## Usage
 
@@ -20,7 +26,7 @@ docker create \
 -v <path to music>:/music \
 -e PGID=<gid> -e PUID=<uid>  \
 --net=host \
-lsiodev/daapd
+linuxserver/daapd
 ```
 
 **Parameters**
@@ -47,7 +53,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 ## Setting up the application 
 
 Map your music folder, open up itunes on the same LAN to see your music there.
-For further setup options of remotes etc, check out the daapd website, [Forked-daapd](https://ejurgensen.github.io/forked-daapd/).
+For further setup options of remotes etc, check out the daapd website, [Forked-daapd][daapdurl].
 
 ## Logs and shell
 * To monitor the logs of the container in realtime `docker logs -f daapd`.
@@ -55,7 +61,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 
 ## Versions
-+ **13.08.16:** Rebase to alpine linux.
++ **17.08.16:** Rebase to alpine linux, remove redundant spotify support.
 + **28.02.16:** Add chromecast support, bump dependency versions.
 + **04.01.16:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
 + **17.12.15:** Add in spotify support.

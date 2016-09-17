@@ -4,8 +4,28 @@ MAINTAINER sparklyballs
 # package version
 ARG DAAPD_VER="24.1"
 
-# install build packages
+# install runtime packages
 RUN \
+ apk add --no-cache \
+	avahi \
+	confuse \
+	dbus \
+	ffmpeg \
+	json-c \
+	libcurl \
+	libevent \
+	libgcrypt \
+	libplist \
+	libunistring \
+	protobuf-c \
+	sqlite \
+	sqlite-libs && \
+ apk add --no-cache \
+ --repository http://nl.alpinelinux.org/alpine/edge/testing \
+	libantlr3c \
+	mxml && \
+
+# install build packages
  apk add --no-cache --virtual=build-dependencies \
 	alsa-lib-dev \
 	autoconf \
@@ -41,10 +61,9 @@ RUN \
  apk add --no-cache --virtual=build-dependencies2 \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	libantlr3c-dev \
-	libavl-dev \
 	mxml-dev && \
 
-# make folders and antlr wrapper
+# make antlr wrapper
  mkdir -p \
 	/tmp/source/forked-daapd && \
  echo \
@@ -53,7 +72,7 @@ RUN \
 	"exec java -cp /tmp/source/antlr-3.4-complete.jar org.antlr.Tool \"\$@\"" >> /tmp/source/antlr3 && \
  chmod a+x /tmp/source/antlr3 && \
 
-# fetch source
+# compile forked-daapd
  curl -o \
  /tmp/source/antlr-3.4-complete.jar -L \
 	http://www.antlr3.org/download/antlr-3.4-complete.jar && \
@@ -62,8 +81,6 @@ RUN \
 	"https://github.com/ejurgensen/forked-daapd/archive/${DAAPD_VER}.tar.gz" && \
  tar xf /tmp/source/forked.tar.gz -C \
 	/tmp/source/forked-daapd --strip-components=1 && \
-
-# configure and compile source
  export PATH="/tmp/source:$PATH" && \
  cd /tmp/source/forked-daapd && \
  autoreconf -i -v && \
@@ -89,27 +106,6 @@ RUN \
 	build-dependencies2 && \
  rm -rf \
 	/tmp/*
-
-# install runtime packages
-RUN \
- apk add --no-cache \
-	avahi \
-	confuse \
-	dbus \
-	ffmpeg \
-	json-c \
-	libcurl \
-	libevent \
-	libgcrypt \
-	libplist \
-	libunistring \
-	protobuf-c \
-	sqlite \
-	sqlite-libs && \
- apk add --no-cache \
- --repository http://nl.alpinelinux.org/alpine/edge/testing \
-	libantlr3c \
-	mxml
 
 # copy local files
 COPY root/ /
