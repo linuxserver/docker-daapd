@@ -77,7 +77,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 ## Versions
 
-+ **14-10-16:** Add version layer information.
++ **14.10.16:** Add version layer information.
 + **17.09.16:** Rebase to alpine linux, remove redundant spotify support, move to main repository
 + **28.02.16:** Add chromecast support, bump dependency versions.
 + **04.01.16:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
