@@ -11,8 +11,8 @@ cp /etc/forked-daapd.conf.orig /defaults/forked-daapd.conf
 sed -i \
 	-e "/cache_path\ =/ s/# *//" \
 	-e "/db_path\ =/ s/# *//" \
-	-e s#"ipv6 = yes"#"ipv6 = no"#g \
-	-e s#"My Music on %h"#"LS.IO Music"#g \
+	-e s#ipv6\ =\ yes#ipv6\ =\ no#g \
+	-e s#My\ Music\ on\ %h#LS.IO\ Music#g \
 	-e s#/srv/music#/music#g \
 	-e 's/\(uid.*=\).*/\1 \"abc\"/g' \
 	-e s#/var/cache/forked-daapd/cache.db#/config/dbase_and_logs/cache.db#g \
