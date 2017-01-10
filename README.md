@@ -63,8 +63,6 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 Map your music folder, open up itunes on the same LAN to see your music there.
 For further setup options of remotes etc, check out the daapd website, [Forked-daapd][daapdurl].
 
-If you experience disconnections in itunes, try editing the value `cache_daap_threshold` to `cache_daap_threshold = 0` (uncommenting the line if necessary) in /config/forked-daapd.conf
-
 ## Logs and shell
 * To monitor the logs of the container in realtime `docker logs -f daapd`.
 * Shell access whilst the container is running: `docker exec -it daapd /bin/bash`
@@ -79,7 +77,7 @@ If you experience disconnections in itunes, try editing the value `cache_daap_th
 
 ## Versions
 
-+ **10.01.17:** Bump to 24.2, add note about cache.
++ **10.01.17:** Bump to 24.2.
 + **14.10.16:** Add version layer information.
 + **17.09.16:** Rebase to alpine linux, remove redundant spotify support, move to main repository
 + **28.02.16:** Add chromecast support, bump dependency versions.
