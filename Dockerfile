@@ -7,7 +7,7 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 
 # package version
-ARG DAAPD_VER="24.1"
+ARG DAAPD_VER="24.2"
 
 # install runtime packages
 RUN \
