@@ -1,4 +1,4 @@
-FROM lsiobase/alpine
+FROM lsiobase/alpine:3.5
 MAINTAINER sparklyballs
 
 # set version label
@@ -6,10 +6,10 @@ ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 
-# package version
+# package version
 ARG DAAPD_VER="24.2"
 
-# install runtime packages
+# install runtime packages
 RUN \
  apk add --no-cache \
 	avahi \
@@ -30,7 +30,7 @@ RUN \
 	libantlr3c \
 	mxml && \
 
-# install build packages
+# install build packages
  apk add --no-cache --virtual=build-dependencies \
 	alsa-lib-dev \
 	autoconf \
@@ -58,7 +58,7 @@ RUN \
 	libtool \
 	libunistring-dev \
 	make \
-	openjdk8-jre-base \
+	openjdk7-jre-base \
 	protobuf-c-dev \
 	sqlite-dev \
 	taglib-dev \
@@ -68,7 +68,7 @@ RUN \
 	libantlr3c-dev \
 	mxml-dev && \
 
-# make antlr wrapper
+# make antlr wrapper
  mkdir -p \
 	/tmp/source/forked-daapd && \
  echo \
@@ -77,7 +77,7 @@ RUN \
 	"exec java -cp /tmp/source/antlr-3.4-complete.jar org.antlr.Tool \"\$@\"" >> /tmp/source/antlr3 && \
  chmod a+x /tmp/source/antlr3 && \
 
-# compile forked-daapd
+# compile forked-daapd
  curl -o \
  /tmp/source/antlr-3.4-complete.jar -L \
 	http://www.antlr3.org/download/antlr-3.4-complete.jar && \
@@ -105,15 +105,17 @@ RUN \
  make install && \
  cp /etc/forked-daapd.conf /etc/forked-daapd.conf.orig && \
 
-# cleanup
+# cleanup
  apk del --purge \
 	build-dependencies \
 	build-dependencies2 && \
  rm -rf \
 	/tmp/*
 
-# copy local files
+# copy local files
 COPY root/ /
 
-# ports and volumes
+# ports and volumes
 VOLUME /config /music
+
+
