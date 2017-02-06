@@ -77,6 +77,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 ## Versions
 
++ **06.02.17:** Rebase to alpine linux 3.5.
 + **10.01.17:** Bump to 24.2.
 + **14.10.16:** Add version layer information.
 + **17.09.16:** Rebase to alpine linux, remove redundant spotify support, move to main repository
