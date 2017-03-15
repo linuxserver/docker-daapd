@@ -2,6 +2,8 @@
 [forumurl]: https://forum.linuxserver.io
 [ircurl]: https://www.linuxserver.io/irc/
 [podcasturl]: https://www.linuxserver.io/podcast/
+[appurl]: https://ejurgensen.github.io/forked-daapd/
+[hub]: https://hub.docker.com/r/linuxserver/daapd/
 
 [![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_medium.png)][linuxserverurl]
 
@@ -12,12 +14,10 @@ The [LinuxServer.io][linuxserverurl] team brings you another container release f
 
 # linuxserver/daapd
 [![](https://images.microbadger.com/badges/version/linuxserver/daapd.svg)](https://microbadger.com/images/linuxserver/daapd "Get your own version badge on microbadger.com")[![](https://images.microbadger.com/badges/image/linuxserver/daapd.svg)](https://microbadger.com/images/linuxserver/daapd "Get your own image badge on microbadger.com")[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/daapd.svg)][hub][![Docker Stars](https://img.shields.io/docker/stars/linuxserver/daapd.svg)][hub][![Build Status](http://jenkins.linuxserver.io:8080/buildStatus/icon?job=Dockers/LinuxServer.io/linuxserver-daapd)](http://jenkins.linuxserver.io:8080/job/Dockers/job/LinuxServer.io/job/linuxserver-daapd/)
-[hub]: https://hub.docker.com/r/linuxserver/daapd/
 
-[Forked-Daapd][daapdurl] (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.
+[Forked-Daapd][appurl] (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.
 
-[![daapd](https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png)][daapdurl]
-[daapdurl]: https://ejurgensen.github.io/forked-daapd/
+[![daapd](https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png)][appurl]
 
 ## Usage
 
@@ -61,7 +61,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 ## Setting up the application 
 
 Map your music folder, open up itunes on the same LAN to see your music there.
-For further setup options of remotes etc, check out the daapd website, [Forked-daapd][daapdurl].
+For further setup options of remotes etc, check out the daapd website, [Forked-daapd][appurl].
 
 ## Logs and shell
 * To monitor the logs of the container in realtime `docker logs -f daapd`.
