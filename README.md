@@ -77,6 +77,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 ## Versions
 
++ **26.05.17:** Rebase to alpine linux 3.6.
 + **06.02.17:** Rebase to alpine linux 3.5.
 + **10.01.17:** Bump to 24.2.
 + **14.10.16:** Add version layer information.
