@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.5
+FROM lsiobase/alpine:3.6
 MAINTAINER sparklyballs
 
 # set version label
@@ -9,28 +9,8 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 # package version
 ARG DAAPD_VER="24.2"
 
-# install runtime packages
-RUN \
- apk add --no-cache \
-	avahi \
-	confuse \
-	dbus \
-	ffmpeg \
-	json-c \
-	libcurl \
-	libevent \
-	libgcrypt \
-	libplist \
-	libunistring \
-	protobuf-c \
-	sqlite \
-	sqlite-libs && \
- apk add --no-cache \
- --repository http://nl.alpinelinux.org/alpine/edge/testing \
-	libantlr3c \
-	mxml && \
-
 # install build packages
+RUN \
  apk add --no-cache --virtual=build-dependencies \
 	alsa-lib-dev \
 	autoconf \
@@ -67,6 +47,26 @@ RUN \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	libantlr3c-dev \
 	mxml-dev && \
+
+# install runtime packages
+ apk add --no-cache \
+	avahi \
+	confuse \
+	dbus \
+	ffmpeg \
+	json-c \
+	libcurl \
+	libevent \
+	libgcrypt \
+	libplist \
+	libunistring \
+	protobuf-c \
+	sqlite \
+	sqlite-libs && \
+ apk add --no-cache \
+	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	libantlr3c \
+	mxml && \
 
 # make antlr wrapper
  mkdir -p \
@@ -117,5 +117,3 @@ COPY root/ /
 
 # ports and volumes
 VOLUME /config /music
-
-
