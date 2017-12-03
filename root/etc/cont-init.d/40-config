@@ -9,8 +9,8 @@ mkdir -p \
 if [ ! -e "/defaults/forked-daapd.conf" ]; then
 cp /etc/forked-daapd.conf.orig /defaults/forked-daapd.conf
 sed -i \
-	-e "/cache_path\ =/ s/# *//" \
-	-e "/db_path\ =/ s/# *//" \
+	-e '/cache_path\ =/ s/# *//' \
+	-e '/db_path\ =/ s/# *//' \
 	-e s#ipv6\ =\ yes#ipv6\ =\ no#g \
 	-e s#My\ Music\ on\ %h#LS.IO\ Music#g \
 	-e s#/srv/music#/music#g \

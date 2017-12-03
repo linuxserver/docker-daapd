@@ -7,7 +7,7 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 
 # package version
-ARG DAAPD_VER="24.2"
+ARG DAAPD_VER="25.0"
 
 # install build packages
 RUN \
@@ -35,15 +35,16 @@ RUN \
 	libgcrypt-dev \
 	libogg-dev \
 	libplist-dev \
+	libsodium-dev \
 	libtool \
 	libunistring-dev \
 	make \
-	openjdk7-jre-base \
+	openjdk8-jre-base \
 	protobuf-c-dev \
 	sqlite-dev \
 	taglib-dev \
 	tar && \
- apk add --no-cache --virtual=build-dependencies2 \
+ apk add --no-cache --virtual=build-dependencies \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	libantlr3c-dev \
 	mxml-dev && \
@@ -59,6 +60,7 @@ RUN \
 	libevent \
 	libgcrypt \
 	libplist \
+	libsodium \
 	libunistring \
 	protobuf-c \
 	sqlite \
@@ -101,14 +103,28 @@ RUN \
 	--mandir=/usr/share/man \
 	--prefix=/app \
 	--sysconfdir=/etc && \
- make && \
+
+# attempt to set number of cores available for make to use
+ set -ex && \
+ CPU_CORES=$( < /proc/cpuinfo grep -c processor ) || echo "failed cpu look up" && \
+ if echo $CPU_CORES | grep -E  -q '^[0-9]+$'; then \
+	: ;\
+ if [ "$CPU_CORES" -gt 7 ]; then \
+	CPU_CORES=$(( CPU_CORES  - 3 )); \
+ elif [ "$CPU_CORES" -gt 5 ]; then \
+	CPU_CORES=$(( CPU_CORES  - 2 )); \
+ elif [ "$CPU_CORES" -gt 3 ]; then \
+	CPU_CORES=$(( CPU_CORES  - 1 )); fi \
+ else CPU_CORES="1"; fi && \
+
+ make -j $CPU_CORES && \
+ set +ex && \
  make install && \
  cp /etc/forked-daapd.conf /etc/forked-daapd.conf.orig && \
 
 # cleanup
  apk del --purge \
-	build-dependencies \
-	build-dependencies2 && \
+	build-dependencies && \
  rm -rf \
 	/tmp/*
 
