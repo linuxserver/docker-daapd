@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.6
+FROM lsiobase/alpine:3.7
 MAINTAINER sparklyballs
 
 # set version label
@@ -9,8 +9,11 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 # package version
 ARG DAAPD_VER="25.0"
 
-# install build packages
+# work around for hanging configure
+ARG CONFIG_SHELL=/bin/sh
+
 RUN \
+ echo "**** install build packages ****" && \
  apk add --no-cache --virtual=build-dependencies \
 	alsa-lib-dev \
 	autoconf \
@@ -48,8 +51,7 @@ RUN \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	libantlr3c-dev \
 	mxml-dev && \
-
-# install runtime packages
+ echo "**** install runtime packages ****" && \
  apk add --no-cache \
 	avahi \
 	confuse \
@@ -69,8 +71,7 @@ RUN \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	libantlr3c \
 	mxml && \
-
-# make antlr wrapper
+ echo "**** make antlr wrapper and compile forked-daapd ****" && \
  mkdir -p \
 	/tmp/source/forked-daapd && \
  echo \
@@ -78,8 +79,6 @@ RUN \
  echo \
 	"exec java -cp /tmp/source/antlr-3.4-complete.jar org.antlr.Tool \"\$@\"" >> /tmp/source/antlr3 && \
  chmod a+x /tmp/source/antlr3 && \
-
-# compile forked-daapd
  curl -o \
  /tmp/source/antlr-3.4-complete.jar -L \
 	http://www.antlr3.org/download/antlr-3.4-complete.jar && \
@@ -103,8 +102,7 @@ RUN \
 	--mandir=/usr/share/man \
 	--prefix=/app \
 	--sysconfdir=/etc && \
-
-# attempt to set number of cores available for make to use
+ echo "**** attempt to set number of cores available for make to use ****" && \
  set -ex && \
  CPU_CORES=$( < /proc/cpuinfo grep -c processor ) || echo "failed cpu look up" && \
  if echo $CPU_CORES | grep -E  -q '^[0-9]+$'; then \
@@ -116,13 +114,11 @@ RUN \
  elif [ "$CPU_CORES" -gt 3 ]; then \
 	CPU_CORES=$(( CPU_CORES  - 1 )); fi \
  else CPU_CORES="1"; fi && \
-
  make -j $CPU_CORES && \
  set +ex && \
  make install && \
  cp /etc/forked-daapd.conf /etc/forked-daapd.conf.orig && \
-
-# cleanup
+ echo "**** cleanup ****" && \
  apk del --purge \
 	build-dependencies && \
  rm -rf \
