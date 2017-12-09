@@ -9,9 +9,6 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 # package version
 ARG DAAPD_VER="25.0"
 
-# work around for hanging configure
-ARG CONFIG_SHELL=/bin/sh
-
 RUN \
  echo "**** install build packages ****" && \
  apk add --no-cache --virtual=build-dependencies \
