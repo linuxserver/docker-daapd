@@ -61,7 +61,11 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 ## Setting up the application 
 
 Map your music folder, open up itunes on the same LAN to see your music there.
+
+The web interface is available at `http://<your ip>:3689`
+
 For further setup options of remotes etc, check out the daapd website, [Forked-daapd][appurl].
+
 
 ## Logs and shell
 * To monitor the logs of the container in realtime `docker logs -f daapd`.
@@ -77,6 +81,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 ## Versions
 
++ **25.02.18:** Query version before pull and build latest release.
 + **03.01.18:** Deprecate cpu_core routine lack of scaling.
 + **07.12.17:** Rebase to alpine linux 3.7.
 + **03.12.17:** Bump to 25.0, cpu core counting routine for faster builds, linting fixes.
