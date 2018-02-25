@@ -6,9 +6,6 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="sparklyballs"
 
-# package version
-ARG DAAPD_VER="25.0"
-
 RUN \
  echo "**** install build packages ****" && \
  apk add --no-cache --virtual=build-dependencies \
@@ -79,6 +76,8 @@ RUN \
  curl -o \
  /tmp/source/antlr-3.4-complete.jar -L \
 	http://www.antlr3.org/download/antlr-3.4-complete.jar && \
+ DAAPD_VER=$(curl -sX GET "https://api.github.com/repos/ejurgensen/forked-daapd/releases/latest" \
+	| awk '/tag_name/{print $4;exit}' FS='[""]') && \
  curl -o \
  /tmp/source/forked.tar.gz -L \
 	"https://github.com/ejurgensen/forked-daapd/archive/${DAAPD_VER}.tar.gz" && \
@@ -112,4 +111,5 @@ RUN \
 COPY root/ /
 
 # ports and volumes
+EXPOSE 3689
 VOLUME /config /music
