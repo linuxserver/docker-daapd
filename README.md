@@ -62,7 +62,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 
 Map your music folder, open up itunes on the same LAN to see your music there.
 
-The web interface is available at http://<your ip>:3689
+The web interface is available at `http://<your ip>:3689`
 
 For further setup options of remotes etc, check out the daapd website, [Forked-daapd][appurl].
 
