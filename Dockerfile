@@ -88,7 +88,7 @@ RUN \
  echo "**** fetch updated configure file if version equals 26.0 ****" && \
  if [ $DAAPD_VER==26.0 ]; then \
 	curl -o /tmp/source/forked-daapd/configure.ac -L \
-	https://raw.githubusercontent.com/ejurgensen/forked-daapd/master/configure.ac; fi && \
+	"https://raw.githubusercontent.com/ejurgensen/forked-daapd/5e13bac8672bd866d43e1988ff8aa831b704d9b4/configure.ac" ; fi && \
  autoreconf -i -v && \
  ./configure \
 	--build=$CBUILD \
