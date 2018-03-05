@@ -81,6 +81,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 ## Versions
 
++ **05.03.18:** Use configure ac from and disable avcodecsend to hopefully mitigate crashes with V26.
 + **25.02.18:** Query version before pull and build latest release.
 + **03.01.18:** Deprecate cpu_core routine lack of scaling.
 + **07.12.17:** Rebase to alpine linux 3.7.
