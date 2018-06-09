@@ -81,6 +81,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 ## Versions
 
++ **09.06.18:** Use buildstage and update dependencies.
 + **05.03.18:** Use updated configure ac and disable avcodecsend to hopefully mitigate crashes with V26.
 + **25.02.18:** Query version before pull and build latest release.
 + **03.01.18:** Deprecate cpu_core routine lack of scaling.
