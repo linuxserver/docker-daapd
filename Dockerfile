@@ -1,9 +1,9 @@
-FROM lsiobase/alpine:3.7 as buildstage
+FROM lsiobase/alpine:3.8 as buildstage
 ############## build stage ##############
 
 RUN \
  echo "**** install build packages ****" && \
- apk add --no-cache --virtual=build-dependencies \
+ apk add --no-cache \
 	alsa-lib-dev \
 	autoconf \
 	automake \
@@ -27,18 +27,18 @@ RUN \
 	libgcrypt-dev \
 	libogg-dev \
 	libplist-dev \
+	libressl-dev \
 	libsodium-dev \
 	libtool \
 	libunistring-dev \
 	libwebsockets-dev \
 	make \
 	openjdk8-jre-base \
-	openssl-dev \
 	protobuf-c-dev \
 	sqlite-dev \
 	taglib-dev \
 	tar && \
- apk add --no-cache --virtual=build-dependencies \
+ apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	libantlr3c-dev \
 	mxml-dev && \
@@ -74,13 +74,13 @@ RUN \
 	--infodir=/usr/share/info \
 	--localstatedir=/var \
 	--mandir=/usr/share/man \
-	--prefix=/app \
+	--prefix=/usr \
 	--sysconfdir=/etc && \
  make && \
- make install
-
+ make DESTDIR=/tmp/daapd-build install && \
+ mv /tmp/daapd-build/etc/forked-daapd.conf /tmp/daapd-build/etc/forked-daapd.conf.orig
 ############## runtime stage ##############
-FROM lsiobase/alpine:3.7
+FROM lsiobase/alpine:3.8
 
 # set version label
 ARG BUILD_DATE
@@ -100,10 +100,10 @@ RUN \
 	libevent \
 	libgcrypt \
 	libplist \
+	libressl \
 	libsodium \
 	libunistring \
 	libwebsockets \
-	openssl \
 	protobuf-c \
 	sqlite \
 	sqlite-libs && \
@@ -113,8 +113,7 @@ RUN \
 	mxml
 
 # copy buildstage and local files
-COPY --from=buildstage /etc/forked-daapd.conf /etc/forked-daapd.conf.orig
-COPY --from=buildstage /app/ app/
+COPY --from=buildstage /tmp/daapd-build/ /
 COPY root/ /
 
 # ports and volumes
