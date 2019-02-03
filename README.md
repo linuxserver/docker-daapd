@@ -33,7 +33,7 @@ linuxserver/daapd
 
 ## Parameters
 
-`The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side. 
+`The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side.
 For example with a port -p external:internal - what this shows is the port mapping from internal to external of the container.
 So -p 8080:80 would expose port 80 from inside the container to be accessible from the host's IP on port 8080
 http://192.168.x.x:8080 would show you what's running INSIDE the container on port 80.`
@@ -58,7 +58,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
     uid=1001(dockeruser) gid=1001(dockergroup) groups=1001(dockergroup)
 ```
 
-## Setting up the application 
+## Setting up the application
 
 Map your music folder, open up itunes on the same LAN to see your music there.
 
@@ -71,7 +71,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 * To monitor the logs of the container in realtime `docker logs -f daapd`.
 * Shell access whilst the container is running: `docker exec -it daapd /bin/bash`
 
-* container version number 
+* container version number
 
 `docker inspect -f '{{ index .Config.Labels "build_version" }}' daapd`
 
@@ -81,6 +81,7 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 
 ## Versions
 
++ **14.01.19:** Adding pipeline logic and multi arch.
 + **20.08.18:** Rebase to alpine linux 3.8.
 + **09.06.18:** Use buildstage and update dependencies.
 + **05.03.18:** Use updated configure ac and disable avcodecsend to hopefully mitigate crashes with V26.
@@ -94,6 +95,6 @@ For further setup options of remotes etc, check out the daapd website, [Forked-d
 + **14.10.16:** Add version layer information.
 + **17.09.16:** Rebase to alpine linux, remove redundant spotify support, move to main repository
 + **28.02.16:** Add chromecast support, bump dependency versions.
-+ **04.01.16:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set. 
++ **04.01.16:** Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set.
 + **17.12.15:** Add in spotify support.
 + **25.11.15:** Initial Release.
