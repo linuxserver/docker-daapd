@@ -84,7 +84,7 @@ libevent libevent-2.1.8-r5
 libgpg-error libgpg-error-1.30-r0
 libgcrypt libgcrypt-1.8.3-r0
 libplist libplist-2.0.0-r0
-libressl libressl-2.7.4-r0
+libressl libressl-2.7.5-r0
 libsodium libsodium-1.0.16-r0
 libwebsockets libwebsockets-3.0.0-r0
 protobuf protobuf-3.5.2-r0
