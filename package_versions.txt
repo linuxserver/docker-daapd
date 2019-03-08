@@ -79,7 +79,7 @@ ffmpeg ffmpeg-3.4.4-r1
 json-c json-c-0.13.1-r0
 nghttp2-libs nghttp2-libs-1.32.0-r0
 libssh2 libssh2-1.8.0-r3
-libcurl libcurl-7.61.1-r1
+libcurl libcurl-7.61.1-r2
 libevent libevent-2.1.8-r5
 libgpg-error libgpg-error-1.30-r0
 libgcrypt libgcrypt-1.8.3-r0
