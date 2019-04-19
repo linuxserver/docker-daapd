@@ -85,7 +85,7 @@ shadow-4.5-r0
 sqlite-3.25.3-r0
 sqlite-libs-3.25.3-r0
 ssl_client-1.28.4-r3
-tzdata-2018f-r0
+tzdata-2018i-r0
 v4l-utils-libs-1.12.6-r1
 x264-libs-20180304-r1
 x265-2.7-r1
