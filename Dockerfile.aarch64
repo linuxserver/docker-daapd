@@ -114,6 +114,7 @@ RUN \
 	sqlite-libs && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	libantlr3c \
 	mxml
 
 # copy buildstage and local files
