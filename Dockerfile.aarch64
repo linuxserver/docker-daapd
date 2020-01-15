@@ -42,6 +42,7 @@ RUN \
 	tar && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	libantlr3c \
 	libantlr3c-dev \
 	mxml-dev && \
  echo "**** make antlr wrapper and compile forked-daapd ****" && \
@@ -113,7 +114,6 @@ RUN \
 	sqlite-libs && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	libantlr3c \
 	mxml
 
 # copy buildstage and local files
