@@ -53,7 +53,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
-  - { date: "06.01.20:", desc: "Rebase to alpine linux 3.11." } 
+  - { date: "16.01.20:", desc: "Rebase to alpine linux 3.11 and build antlr3c from source." } 
   - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
   - { date: "14.01.19:", desc: "Add pipeline logic and multi arch." }
   - { date: "20.08.18:", desc: "Rebase to alpine linux 3.8." }
