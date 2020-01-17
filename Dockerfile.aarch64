@@ -60,7 +60,6 @@ RUN \
 	https://github.com/antlr/website-antlr3/raw/gh-pages/download/C/libantlr3c-3.4.tar.gz && \
  tar xf /tmp/libantlr3c-3.4.tar.gz  -C /tmp && \
  cd /tmp/libantlr3c-3.4 && \
- autoreconf -i -v && \
  ./configure --enable-64bit --prefix=/usr && \
  make && \
  make DESTDIR=/tmp/antlr3c-build install && \
