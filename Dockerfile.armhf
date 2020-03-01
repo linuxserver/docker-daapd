@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:arm32v7-3.8 as buildstage
+FROM lsiobase/alpine:arm32v7-3.11 as buildstage
 ############## build stage ##############
 
 ARG DAAPD_RELEASE
@@ -42,9 +42,8 @@ RUN \
 	tar && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	libantlr3c-dev \
 	mxml-dev && \
- echo "**** make antlr wrapper and compile forked-daapd ****" && \
+ echo "**** make antlr wrapper ****" && \
  mkdir -p \
 	/tmp/source/forked-daapd && \
  echo \
@@ -55,6 +54,18 @@ RUN \
  curl -o \
  /tmp/source/antlr-3.4-complete.jar -L \
 	http://www.antlr3.org/download/antlr-3.4-complete.jar && \
+ echo "**** compile and install antlr3c ****" && \
+ curl -o \
+ /tmp/libantlr3c-3.4.tar.gz -L \
+	https://github.com/antlr/website-antlr3/raw/gh-pages/download/C/libantlr3c-3.4.tar.gz && \
+ tar xf /tmp/libantlr3c-3.4.tar.gz  -C /tmp && \
+ cd /tmp/libantlr3c-3.4 && \
+ ./configure --build arm-unknown-linux-gnueabihf --disable-abiflags --disable-antlrdebug --prefix=/usr && \
+ make && \
+ make DESTDIR=/tmp/antlr3c-build install && \
+ export LDFLAGS="-L/tmp/antlr3c-build/usr/lib" && \
+ export CFLAGS="-I/tmp/antlr3c-build/usr/include" && \
+ echo "**** compile forked-daapd ****" && \
  if [ -z ${DAAPD_RELEASE+x} ]; then \
 	DAAPD_RELEASE=$(curl -sX GET "https://api.github.com/repos/ejurgensen/forked-daapd/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
@@ -84,7 +95,7 @@ RUN \
  make DESTDIR=/tmp/daapd-build install && \
  mv /tmp/daapd-build/etc/forked-daapd.conf /tmp/daapd-build/etc/forked-daapd.conf.orig
 ############## runtime stage ##############
-FROM lsiobase/alpine:arm32v7-3.8
+FROM lsiobase/alpine:arm32v7-3.11
 
 # set version label
 ARG BUILD_DATE
@@ -113,11 +124,11 @@ RUN \
 	sqlite-libs && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	libantlr3c \
 	mxml
 
 # copy buildstage and local files
 COPY --from=buildstage /tmp/daapd-build/ /
+COPY --from=buildstage /tmp/antlr3c-build/ /
 COPY root/ /
 
 # ports and volumes
