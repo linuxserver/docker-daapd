@@ -41,7 +41,7 @@ RUN \
 	taglib-dev \
 	tar && \
  apk add --no-cache \
-	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	--repository http://nl.alpinelinux.org/alpine/edge/community \
 	mxml-dev && \
  echo "**** make antlr wrapper ****" && \
  mkdir -p \
@@ -123,7 +123,7 @@ RUN \
 	sqlite \
 	sqlite-libs && \
  apk add --no-cache \
-	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	--repository http://nl.alpinelinux.org/alpine/edge/community \
 	mxml
 
 # copy buildstage and local files

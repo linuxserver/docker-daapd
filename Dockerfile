@@ -2,6 +2,8 @@ FROM lsiobase/alpine:3.12 as buildstage
 ############## build stage ##############
 
 ARG DAAPD_RELEASE
+ARG LIBSPOTIFY_VERSION=12.1.51
+ARG ARCH=x86_64
 
 RUN \
  echo "**** install build packages ****" && \
@@ -41,7 +43,7 @@ RUN \
 	taglib-dev \
 	tar && \
  apk add --no-cache \
-	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	--repository http://nl.alpinelinux.org/alpine/edge/community \
 	mxml-dev && \
  echo "**** make antlr wrapper ****" && \
  mkdir -p \
@@ -70,6 +72,13 @@ RUN \
 	DAAPD_RELEASE=$(curl -sX GET "https://api.github.com/repos/ejurgensen/forked-daapd/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
  fi && \
+ curl -L https://github.com/mopidy/libspotify-archive/blob/master/libspotify-${LIBSPOTIFY_VERSION}-Linux-${ARCH}-release.tar.gz?raw=true | tar -xzf- -C /tmp/source/ && \
+ mv /tmp/source/libspotify* /tmp/source/libspotify && \
+ sed -i 's/ldconfig//' /tmp/source/libspotify/Makefile && \
+ make -C /tmp/source/libspotify prefix=/tmp/libspotify-build install && \
+ rm -rf /tmp/source/libspotify && \
+ export LIBSPOTIFY_CFLAGS="-I/tmp/libspotify-build/include" && \
+ export LIBSPOTIFY_LIBS="/tmp/libspotify-build/lib/libspotify.so" && \
  curl -o \
  /tmp/source/forked.tar.gz -L \
 	"https://github.com/ejurgensen/forked-daapd/archive/${DAAPD_RELEASE}.tar.gz" && \
@@ -80,11 +89,11 @@ RUN \
  autoreconf -i -v && \
  ./configure \
 	--build=$CBUILD \
-	--disable-avcodecsend \
 	--enable-chromecast \
 	--enable-itunes \
 	--enable-lastfm \
 	--enable-mpd \
+    --enable-spotify \
 	--host=$CHOST \
 	--infodir=/usr/share/info \
 	--localstatedir=/var \
@@ -123,12 +132,13 @@ RUN \
 	sqlite \
 	sqlite-libs && \
  apk add --no-cache \
-	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	--repository http://nl.alpinelinux.org/alpine/edge/community \
 	mxml
 
 # copy buildstage and local files
 COPY --from=buildstage /tmp/daapd-build/ /
 COPY --from=buildstage /tmp/antlr3c-build/ /
+COPY --from=buildstage /tmp/libspotify-build/ /
 COPY root/ /
 
 # ports and volumes
