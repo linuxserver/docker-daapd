@@ -6,7 +6,7 @@ apk-tools-2.10.5-r1
 avahi-0.8-r0
 avahi-libs-0.8-r0
 bash-5.0.17-r0
-brotli-libs-1.0.7-r5
+brotli-libs-1.0.9-r1
 busybox-1.31.1-r19
 ca-certificates-20191127-r4
 ca-certificates-bundle-20191127-r4
