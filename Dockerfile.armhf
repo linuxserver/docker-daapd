@@ -92,6 +92,7 @@ RUN \
 	--enable-itunes \
 	--enable-lastfm \
 	--enable-mpd \
+    --enable-spotify \
 	--host=$CHOST \
 	--infodir=/usr/share/info \
 	--localstatedir=/var \
