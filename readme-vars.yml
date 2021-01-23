@@ -53,6 +53,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "23.01.21:", desc: "Rebasing to alpine 3.13." }
   - { date: "06.10.20:", desc: "Enabled Spotify on Alpine 3.12 for X86_64 and ARMv7." }
   - { date: "01.06.20:", desc: "Rebasing to alpine 3.12." }
   - { date: "16.01.20:", desc: "Rebase to alpine linux 3.11 and build antlr3c from source." } 
