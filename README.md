@@ -153,6 +153,19 @@ The web interface is available at `http://<your ip>:3689`
 For further setup options of remotes etc, check out the daapd website, [Forked-daapd](https://ejurgensen.github.io/forked-daapd/).
 
 
+## Enable spotify connect server
+
+Enable the spotify connect server by creating a pipe named 'spotify' in the root of your mounted music folder (not possible on most network mounts):
+
+```sh
+mkfifo <music_folder>/spotify
+```
+
+The spotify connect server should show up as the 'forked-daapd' device in your Spotify application.
+
+It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
+
+
 ## Docker Mods
 [![Docker Mods](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=daapd&query=%24.mods%5B%27daapd%27%5D.mod_count&url=https%3A%2F%2Fraw.githubusercontent.com%2Flinuxserver%2Fdocker-mods%2Fmaster%2Fmod-list.yml)](https://mods.linuxserver.io/?mod=daapd "view available mods for this container.") [![Docker Universal Mods](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=universal&query=%24.mods%5B%27universal%27%5D.mod_count&url=https%3A%2F%2Fraw.githubusercontent.com%2Flinuxserver%2Fdocker-mods%2Fmaster%2Fmod-list.yml)](https://mods.linuxserver.io/?mod=universal "view available universal mods.")
 
