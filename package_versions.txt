@@ -21,7 +21,7 @@ fontconfig-2.13.1-r2
 freetype-2.10.4-r0
 fribidi-1.0.9-r0
 gmp-6.2.0-r0
-gnutls-3.6.15-r0
+gnutls-3.6.15-r1
 json-c-0.14-r1
 lame-3.100-r0
 libacl-2.2.53-r0
