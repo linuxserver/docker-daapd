@@ -69,7 +69,7 @@ RUN \
  export CFLAGS="-I/tmp/antlr3c-build/usr/include" && \
  echo "**** compile forked-daapd ****" && \
  if [ -z ${DAAPD_RELEASE+x} ]; then \
-	DAAPD_RELEASE=$(curl -sX GET "https://api.github.com/repos/ejurgensen/forked-daapd/releases/latest" \
+	DAAPD_RELEASE=$(curl -sX GET "https://api.github.com/repos/owntone/forked-daapd/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
  fi && \
  curl -L https://github.com/mopidy/libspotify-archive/blob/master/libspotify-${LIBSPOTIFY_VERSION}-Linux-${ARCH}-release.tar.gz?raw=true | tar -xzf- -C /tmp/source/ && \
@@ -81,7 +81,7 @@ RUN \
  export LIBSPOTIFY_LIBS="/tmp/libspotify-build/lib/libspotify.so" && \
  curl -o \
  /tmp/source/forked.tar.gz -L \
-	"https://github.com/ejurgensen/forked-daapd/archive/${DAAPD_RELEASE}.tar.gz" && \
+	"https://github.com/owntone/forked-daapd/archive/${DAAPD_RELEASE}.tar.gz" && \
  tar xf /tmp/source/forked.tar.gz -C \
 	/tmp/source/forked-daapd --strip-components=1 && \
  export PATH="/tmp/source:$PATH" && \
@@ -110,7 +110,7 @@ FROM ghcr.io/linuxserver/baseimage-alpine:3.12
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="sparklyballs"
+LABEL maintainer="BernsteinA"
 
 RUN \
  echo "**** install runtime packages ****" && \
