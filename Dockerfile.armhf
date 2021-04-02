@@ -67,9 +67,9 @@ RUN \
  make DESTDIR=/tmp/antlr3c-build install && \
  export LDFLAGS="-L/tmp/antlr3c-build/usr/lib" && \
  export CFLAGS="-I/tmp/antlr3c-build/usr/include" && \
- echo "**** compile forked-daapd ****" && \
+ echo "**** compile owntone-server ****" && \
  if [ -z ${DAAPD_RELEASE+x} ]; then \
-	DAAPD_RELEASE=$(curl -sX GET "https://api.github.com/repos/owntone/forked-daapd/releases/latest" \
+	DAAPD_RELEASE=$(curl -sX GET "https://api.github.com/repos/owntone/owntone-server/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
  fi && \
  curl -L https://github.com/mopidy/libspotify-archive/blob/master/libspotify-${LIBSPOTIFY_VERSION}-Linux-${ARCH}-release.tar.gz?raw=true | tar -xzf- -C /tmp/source/ && \
@@ -79,7 +79,7 @@ RUN \
  rm -rf /tmp/source/libspotify && \
  curl -o \
  /tmp/source/forked.tar.gz -L \
-	"https://github.com/owntone/forked-daapd/archive/${DAAPD_RELEASE}.tar.gz" && \
+	"https://github.com/owntone/owntone-server/archive/${DAAPD_RELEASE}.tar.gz" && \
  tar xf /tmp/source/forked.tar.gz -C \
 	/tmp/source/forked-daapd --strip-components=1 && \
  export PATH="/tmp/source:$PATH" && \

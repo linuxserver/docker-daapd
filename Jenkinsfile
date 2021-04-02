@@ -18,7 +18,7 @@ pipeline {
     GITLAB_NAMESPACE=credentials('gitlab-namespace-id')
     EXT_GIT_BRANCH = 'master'
     EXT_USER = 'owntone'
-    EXT_REPO = 'forked-daapd'
+    EXT_REPO = 'owntone-server'
     BUILD_VERSION_ARG = 'DAAPD_RELEASE'
     LS_USER = 'linuxserver'
     LS_REPO = 'docker-daapd'
