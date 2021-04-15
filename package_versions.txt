@@ -2,7 +2,7 @@ alpine-baselayout-3.2.0-r7
 alpine-keys-2.2-r0
 alsa-lib-1.2.2-r0
 aom-libs-1.0.0-r1
-apk-tools-2.10.5-r3
+apk-tools-2.10.6-r0
 avahi-0.8-r0
 avahi-libs-0.8-r0
 bash-5.0.17-r0
@@ -32,7 +32,7 @@ libbz2-1.0.8-r1
 libc-utils-0.7.2-r3
 libcap-2.27-r0
 libcrypto1.1-1.1.1k-r0
-libcurl-7.69.1-r3
+libcurl-7.76.1-r0
 libdaemon-0.14-r2
 libdav1d-0.7.0-r0
 libdrm-2.4.102-r0
