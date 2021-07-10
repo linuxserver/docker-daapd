@@ -47,7 +47,7 @@ RUN \
 	mxml-dev && \
  echo "**** make antlr wrapper ****" && \
  mkdir -p \
-	/tmp/source/forked-daapd && \
+	/tmp/source/owntone && \
  echo \
 	"#!/bin/bash" > /tmp/source/antlr3 && \
  echo \
@@ -80,12 +80,12 @@ RUN \
  export LIBSPOTIFY_CFLAGS="-I/tmp/libspotify-build/include" && \
  export LIBSPOTIFY_LIBS="/tmp/libspotify-build/lib/libspotify.so" && \
  curl -o \
- /tmp/source/forked.tar.gz -L \
+ /tmp/source/owntone.tar.gz -L \
 	"https://github.com/owntone/owntone-server/archive/${DAAPD_RELEASE}.tar.gz" && \
- tar xf /tmp/source/forked.tar.gz -C \
-	/tmp/source/forked-daapd --strip-components=1 && \
+ tar xf /tmp/source/owntone.tar.gz -C \
+	/tmp/source/owntone --strip-components=1 && \
  export PATH="/tmp/source:$PATH" && \
- cd /tmp/source/forked-daapd && \
+ cd /tmp/source/owntone && \
  autoreconf -i -v && \
  ./configure \
 	--build=$CBUILD \
@@ -102,7 +102,7 @@ RUN \
 	--sysconfdir=/etc && \
  make && \
  make DESTDIR=/tmp/daapd-build install && \
- mv /tmp/daapd-build/etc/forked-daapd.conf /tmp/daapd-build/etc/forked-daapd.conf.orig
+ mv /tmp/daapd-build/etc/owntone.conf /tmp/daapd-build/etc/owntone.conf.orig
 ############## runtime stage ##############
 FROM ghcr.io/linuxserver/baseimage-alpine:3.12
 
