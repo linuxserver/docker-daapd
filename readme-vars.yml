@@ -2,7 +2,7 @@
 
 # project information
 project_name: daapd
-project_url: "https://ejurgensen.github.io/forked-daapd/"
+project_url: "https://owntone.github.io/owntone-server/"
 project_logo: "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
@@ -49,10 +49,11 @@ app_setup_block: |
 
   The web interface is available at `http://<your ip>:3689`
 
-  For further setup options of remotes etc, check out the daapd website, [Forked-daapd]({{ project_url }}).
+  For further setup options of remotes etc, check out the daapd website, [Owntone]({{ project_url }}).
 
 # changelog
 changelogs:
+  - { date: "10.07.21:", desc: "Change of paths to work with the new package name, OwnTone." }
   - { date: "02.04.21:", desc: "Update upstream repo, again." }
   - { date: "30.03.21:", desc: "Update upstream repo." }
   - { date: "06.10.20:", desc: "Enabled Spotify on Alpine 3.12 for X86_64 and ARMv7." }
