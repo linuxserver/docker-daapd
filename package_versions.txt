@@ -32,7 +32,7 @@ libbz2-1.0.8-r1
 libc-utils-0.7.2-r3
 libcap-2.27-r0
 libcrypto1.1-1.1.1k-r0
-libcurl-7.77.0-r0
+libcurl-7.78.0-r0
 libdaemon-0.14-r2
 libdav1d-0.7.0-r0
 libdrm-2.4.102-r0
