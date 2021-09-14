@@ -50,6 +50,7 @@ libpng-1.6.37-r1
 libproc-3.3.16-r0
 libprotobuf-3.12.2-r0
 libprotoc-3.12.2-r0
+librespot-0.2.0-r0
 libressl-3.1.2-r0
 libressl3.1-libcrypto-3.1.2-r0
 libressl3.1-libssl-3.1.2-r0
