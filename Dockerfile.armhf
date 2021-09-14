@@ -2,7 +2,6 @@ FROM ghcr.io/linuxserver/baseimage-alpine:arm32v7-3.12 as buildstage
 ############## build stage ##############
 
 ARG DAAPD_RELEASE
-ARG LIBSPOTIFY_VERSION=12.1.51
 ARG ARCH=armv7
 
 RUN \
@@ -72,11 +71,6 @@ RUN \
 	DAAPD_RELEASE=$(curl -sX GET "https://api.github.com/repos/owntone/owntone-server/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
  fi && \
- curl -L https://github.com/mopidy/libspotify-archive/blob/master/libspotify-${LIBSPOTIFY_VERSION}-Linux-${ARCH}-release.tar.gz?raw=true | tar -xzf- -C /tmp/source/ && \
- mv /tmp/source/libspotify* /tmp/source/libspotify && \
- sed -i 's/ldconfig//' /tmp/source/libspotify/Makefile && \
- make -C /tmp/source/libspotify prefix=/tmp/libspotify-build install && \
- rm -rf /tmp/source/libspotify && \
  curl -o \
  /tmp/source/owntone.tar.gz -L \
 	"https://github.com/owntone/owntone-server/archive/${DAAPD_RELEASE}.tar.gz" && \
@@ -131,12 +125,14 @@ RUN \
 	sqlite-libs && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/community \
-	mxml
+	mxml && \
+ apk add --no-cache \
+    --repository https://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    librespot
 
 # copy buildstage and local files
 COPY --from=buildstage /tmp/daapd-build/ /
 COPY --from=buildstage /tmp/antlr3c-build/ /
-COPY --from=buildstage /tmp/libspotify-build/ /
 COPY root/ /
 
 # ports and volumes

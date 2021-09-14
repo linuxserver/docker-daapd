@@ -1,0 +1,2 @@
+#!/usr/bin/execlineb -P
+librespot --backend pipe --device /music/spotify -n forked-daapd --cache /tmp
