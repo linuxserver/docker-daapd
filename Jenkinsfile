@@ -17,8 +17,8 @@ pipeline {
     GITLAB_TOKEN=credentials('b6f0f1dd-6952-4cf6-95d1-9c06380283f0')
     GITLAB_NAMESPACE=credentials('gitlab-namespace-id')
     EXT_GIT_BRANCH = 'master'
-    EXT_USER = 'ejurgensen'
-    EXT_REPO = 'forked-daapd'
+    EXT_USER = 'owntone'
+    EXT_REPO = 'owntone-server'
     BUILD_VERSION_ARG = 'DAAPD_RELEASE'
     LS_USER = 'linuxserver'
     LS_REPO = 'docker-daapd'
@@ -58,7 +58,7 @@ pipeline {
           env.CODE_URL = 'https://github.com/' + env.LS_USER + '/' + env.LS_REPO + '/commit/' + env.GIT_COMMIT
           env.DOCKERHUB_LINK = 'https://hub.docker.com/r/' + env.DOCKERHUB_IMAGE + '/tags/'
           env.PULL_REQUEST = env.CHANGE_ID
-          env.TEMPLATED_FILES = 'Jenkinsfile README.md LICENSE ./.github/CONTRIBUTING.md ./.github/FUNDING.yml ./.github/ISSUE_TEMPLATE/config.yml ./.github/ISSUE_TEMPLATE/issue.bug.md ./.github/ISSUE_TEMPLATE/issue.feature.md ./.github/PULL_REQUEST_TEMPLATE.md ./.github/workflows/greetings.yml ./.github/workflows/stale.yml ./.github/workflows/package_trigger.yml ./.github/workflows/package_trigger_scheduler.yml ./.github/workflows/external_trigger.yml ./.github/workflows/external_trigger_scheduler.yml'
+          env.TEMPLATED_FILES = 'Jenkinsfile README.md LICENSE .editorconfig ./.github/CONTRIBUTING.md ./.github/FUNDING.yml ./.github/ISSUE_TEMPLATE/config.yml ./.github/ISSUE_TEMPLATE/issue.bug.md ./.github/ISSUE_TEMPLATE/issue.feature.md ./.github/PULL_REQUEST_TEMPLATE.md ./.github/workflows/external_trigger_scheduler.yml ./.github/workflows/greetings.yml ./.github/workflows/package_trigger_scheduler.yml ./.github/workflows/stale.yml ./.github/workflows/external_trigger.yml ./.github/workflows/package_trigger.yml'
         }
         script{
           env.LS_RELEASE_NUMBER = sh(
@@ -106,7 +106,7 @@ pipeline {
      steps{
        script{
          env.EXT_RELEASE = sh(
-           script: '''curl -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq -r '. | .tag_name' ''',
+           script: '''curl -H "Authorization: token ${GITHUB_TOKEN}" -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq -r '. | .tag_name' ''',
            returnStdout: true).trim()
        }
      }
@@ -270,7 +270,6 @@ pipeline {
                 git clone https://github.com/${LS_USER}/${LS_REPO}.git ${TEMPDIR}/repo/${LS_REPO}
                 cd ${TEMPDIR}/repo/${LS_REPO}
                 git checkout -f master
-                cd ${TEMPDIR}/docker-${CONTAINER_NAME}
                 for i in ${TEMPLATES_TO_DELETE}; do
                   git rm "${i}"
                 done
@@ -317,22 +316,24 @@ pipeline {
                 git commit -m 'Bot Updating Documentation'
                 git push https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/linuxserver/docker-documentation.git --all
               fi
-              mkdir -p ${TEMPDIR}/unraid 
+              mkdir -p ${TEMPDIR}/unraid
               git clone https://github.com/linuxserver/docker-templates.git ${TEMPDIR}/unraid/docker-templates
               git clone https://github.com/linuxserver/templates.git ${TEMPDIR}/unraid/templates
-              if [[ -f ${TEMPDIR}/unraid/docker-templates/linuxserver.io/img/${CONTAINER_NAME}-icon.png ]]; then
-                sed -i "s|master/linuxserver.io/img/linuxserver-ls-logo.png|master/linuxserver.io/img/${CONTAINER_NAME}-icon.png|" ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml
+              if [[ -f ${TEMPDIR}/unraid/docker-templates/linuxserver.io/img/${CONTAINER_NAME}-logo.png ]]; then
+                sed -i "s|master/linuxserver.io/img/linuxserver-ls-logo.png|master/linuxserver.io/img/${CONTAINER_NAME}-logo.png|" ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml
               fi
               if [[ ("${BRANCH_NAME}" == "master") || ("${BRANCH_NAME}" == "main") ]] && [[ (! -f ${TEMPDIR}/unraid/templates/unraid/${CONTAINER_NAME}.xml) || ("$(md5sum ${TEMPDIR}/unraid/templates/unraid/${CONTAINER_NAME}.xml | awk '{ print $1 }')" != "$(md5sum ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml | awk '{ print $1 }')") ]]; then
+                cd ${TEMPDIR}/unraid/templates/
                 if grep -wq "${CONTAINER_NAME}" ${TEMPDIR}/unraid/templates/unraid/ignore.list; then
-                  echo "Image is on the ignore list, skipping Unraid template upload"
+                  echo "Image is on the ignore list, removing Unraid template"
+                  git rm unraid/${CONTAINER_NAME}.xml || :
+                  git commit -m 'Bot Removing Deprecated Unraid Template' || :
                 else
                   cp ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml ${TEMPDIR}/unraid/templates/unraid/
-                  cd ${TEMPDIR}/unraid/templates/
                   git add unraid/${CONTAINER_NAME}.xml
                   git commit -m 'Bot Updating Unraid Template'
-                  git push https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/linuxserver/templates.git --all
                 fi
+                git push https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/linuxserver/templates.git --all
               fi
               rm -Rf ${TEMPDIR}'''
         script{
@@ -384,27 +385,58 @@ pipeline {
     // Build Docker container for push to LS Repo
     stage('Build-Single') {
       when {
-        environment name: 'MULTIARCH', value: 'false'
+        expression {
+          env.MULTIARCH == 'false' || params.PACKAGE_CHECK == 'true' 
+        }
         environment name: 'EXIT_STATUS', value: ''
       }
       steps {
         echo "Running on node: ${NODE_NAME}"
-        sh "docker build --no-cache --pull -t ${IMAGE}:${META_TAG} \
-        --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
+        sh "docker build \
+          --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
+          --label \"org.opencontainers.image.authors=linuxserver.io\" \
+          --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-daapd/packages\" \
+          --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-daapd\" \
+          --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-daapd\" \
+          --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
+          --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
+          --label \"org.opencontainers.image.vendor=linuxserver.io\" \
+          --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
+          --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
+          --label \"org.opencontainers.image.title=Daapd\" \
+          --label \"org.opencontainers.image.description=[Daapd](https://owntone.github.io/owntone-server/) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.\" \
+          --no-cache --pull -t ${IMAGE}:${META_TAG} \
+          --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
       }
     }
     // Build MultiArch Docker containers for push to LS Repo
     stage('Build-Multi') {
       when {
-        environment name: 'MULTIARCH', value: 'true'
+        allOf {
+          environment name: 'MULTIARCH', value: 'true'
+          expression { params.PACKAGE_CHECK == 'false' }
+        }
         environment name: 'EXIT_STATUS', value: ''
       }
       parallel {
         stage('Build X86') {
           steps {
             echo "Running on node: ${NODE_NAME}"
-            sh "docker build --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} \
-            --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
+            sh "docker build \
+              --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
+              --label \"org.opencontainers.image.authors=linuxserver.io\" \
+              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-daapd/packages\" \
+              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-daapd\" \
+              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-daapd\" \
+              --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
+              --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
+              --label \"org.opencontainers.image.vendor=linuxserver.io\" \
+              --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
+              --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
+              --label \"org.opencontainers.image.title=Daapd\" \
+              --label \"org.opencontainers.image.description=[Daapd](https://owntone.github.io/owntone-server/) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.\" \
+              --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} \
+              --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
           }
         }
         stage('Build ARMHF') {
@@ -417,8 +449,21 @@ pipeline {
             sh '''#! /bin/bash
                   echo $GITHUB_TOKEN | docker login ghcr.io -u LinuxServer-CI --password-stdin
                '''
-            sh "docker build --no-cache --pull -f Dockerfile.armhf -t ${IMAGE}:arm32v7-${META_TAG} \
-                         --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
+            sh "docker build \
+              --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
+              --label \"org.opencontainers.image.authors=linuxserver.io\" \
+              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-daapd/packages\" \
+              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-daapd\" \
+              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-daapd\" \
+              --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
+              --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
+              --label \"org.opencontainers.image.vendor=linuxserver.io\" \
+              --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
+              --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
+              --label \"org.opencontainers.image.title=Daapd\" \
+              --label \"org.opencontainers.image.description=[Daapd](https://owntone.github.io/owntone-server/) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.\" \
+              --no-cache --pull -f Dockerfile.armhf -t ${IMAGE}:arm32v7-${META_TAG} \
+              --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh "docker tag ${IMAGE}:arm32v7-${META_TAG} ghcr.io/linuxserver/lsiodev-buildcache:arm32v7-${COMMIT_SHA}-${BUILD_NUMBER}"
             retry(5) {
               sh "docker push ghcr.io/linuxserver/lsiodev-buildcache:arm32v7-${COMMIT_SHA}-${BUILD_NUMBER}"
@@ -438,8 +483,21 @@ pipeline {
             sh '''#! /bin/bash
                   echo $GITHUB_TOKEN | docker login ghcr.io -u LinuxServer-CI --password-stdin
                '''
-            sh "docker build --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} \
-                         --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
+            sh "docker build \
+              --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
+              --label \"org.opencontainers.image.authors=linuxserver.io\" \
+              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-daapd/packages\" \
+              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-daapd\" \
+              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-daapd\" \
+              --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
+              --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
+              --label \"org.opencontainers.image.vendor=linuxserver.io\" \
+              --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
+              --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
+              --label \"org.opencontainers.image.title=Daapd\" \
+              --label \"org.opencontainers.image.description=[Daapd](https://owntone.github.io/owntone-server/) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.\" \
+              --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} \
+              --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh "docker tag ${IMAGE}:arm64v8-${META_TAG} ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
             retry(5) {
               sh "docker push ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
@@ -462,7 +520,7 @@ pipeline {
         sh '''#! /bin/bash
               set -e
               TEMPDIR=$(mktemp -d)
-              if [ "${MULTIARCH}" == "true" ]; then
+              if [ "${MULTIARCH}" == "true" ] && [ "${PACKAGE_CHECK}" == "false" ]; then
                 LOCAL_CONTAINER=${IMAGE}:amd64-${META_TAG}
               else
                 LOCAL_CONTAINER=${IMAGE}:${META_TAG}
@@ -476,6 +534,15 @@ pipeline {
                 docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
                   apt list -qq --installed | sed "s#/.*now ##g" | cut -d" " -f1 > /tmp/package_versions.txt && \
                   sort -o /tmp/package_versions.txt  /tmp/package_versions.txt && \
+                  chmod 777 /tmp/package_versions.txt'
+              elif [ "${DIST_IMAGE}" == "fedora" ]; then
+                docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
+                  rpm -qa > /tmp/package_versions.txt && \
+                  sort -o /tmp/package_versions.txt  /tmp/package_versions.txt && \
+                  chmod 777 /tmp/package_versions.txt'
+              elif [ "${DIST_IMAGE}" == "arch" ]; then
+                docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
+                  pacman -Q > /tmp/package_versions.txt && \
                   chmod 777 /tmp/package_versions.txt'
               fi
               NEW_PACKAGE_TAG=$(md5sum ${TEMPDIR}/package_versions.txt | cut -c1-8 )
@@ -514,7 +581,7 @@ pipeline {
       steps {
         sh '''#! /bin/bash
               echo "Packages were updated. Cleaning up the image and exiting."
-              if [ "${MULTIARCH}" == "true" ]; then
+              if [ "${MULTIARCH}" == "true" ] && [ "${PACKAGE_CHECK}" == "false" ]; then
                 docker rmi ${IMAGE}:amd64-${META_TAG}
               else
                 docker rmi ${IMAGE}:${META_TAG}
@@ -538,7 +605,7 @@ pipeline {
       steps {
         sh '''#! /bin/bash
               echo "There are no package updates. Cleaning up the image and exiting."
-              if [ "${MULTIARCH}" == "true" ]; then
+              if [ "${MULTIARCH}" == "true" ] && [ "${PACKAGE_CHECK}" == "false" ]; then
                 docker rmi ${IMAGE}:amd64-${META_TAG}
               else
                 docker rmi ${IMAGE}:${META_TAG}
@@ -746,11 +813,11 @@ pipeline {
              "tagger": {"name": "LinuxServer Jenkins","email": "jenkins@linuxserver.io","date": "'${GITHUB_DATE}'"}}' '''
         echo "Pushing New release for Tag"
         sh '''#! /bin/bash
-              curl -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq '. |.body' | sed 's:^.\\(.*\\).$:\\1:' > releasebody.json
+              curl -H "Authorization: token ${GITHUB_TOKEN}" -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq '. |.body' | sed 's:^.\\(.*\\).$:\\1:' > releasebody.json
               echo '{"tag_name":"'${META_TAG}'",\
                      "target_commitish": "master",\
                      "name": "'${META_TAG}'",\
-                     "body": "**LinuxServer Changes:**\\n\\n'${LS_RELEASE_NOTES}'\\n**'${EXT_REPO}' Changes:**\\n\\n' > start
+                     "body": "**LinuxServer Changes:**\\n\\n'${LS_RELEASE_NOTES}'\\n\\n**'${EXT_REPO}' Changes:**\\n\\n' > start
               printf '","draft": false,"prerelease": false}' >> releasebody.json
               paste -d'\\0' start releasebody.json > releasebody.json.done
               curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST https://api.github.com/repos/${LS_USER}/${LS_REPO}/releases -d @releasebody.json.done'''
@@ -775,7 +842,7 @@ pipeline {
                 set -e
                 TEMPDIR=$(mktemp -d)
                 docker pull ghcr.io/linuxserver/jenkins-builder:latest
-                docker run --rm -e CONTAINER_NAME=${CONTAINER_NAME} -e GITHUB_BRANCH="${BRANCH_NAME}" -v ${TEMPDIR}:/ansible/jenkins ghcr.io/linuxserver/jenkins-builder:latest 
+                docker run --rm -e CONTAINER_NAME=${CONTAINER_NAME} -e GITHUB_BRANCH="${BRANCH_NAME}" -v ${TEMPDIR}:/ansible/jenkins ghcr.io/linuxserver/jenkins-builder:latest
                 docker pull ghcr.io/linuxserver/readme-sync
                 docker run --rm=true \
                   -e DOCKERHUB_USERNAME=$DOCKERUSER \
