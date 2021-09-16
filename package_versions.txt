@@ -32,14 +32,14 @@ libbz2-1.0.8-r1
 libc-utils-0.7.2-r3
 libcap-2.27-r0
 libcrypto1.1-1.1.1l-r0
-libcurl-7.78.0-r0
+libcurl-7.79.0-r0
 libdaemon-0.14-r2
 libdav1d-0.7.0-r0
 libdrm-2.4.102-r0
 libevent-2.1.11-r1
 libffi-3.3-r2
 libgcc-9.3.0-r2
-libgcrypt-1.8.8-r0
+libgcrypt-1.8.8-r1
 libgpg-error-1.37-r0
 libintl-0.20.2-r0
 libjpeg-turbo-2.1.0-r0
