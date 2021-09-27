@@ -133,10 +133,7 @@ RUN \
 	sqlite-libs && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/community \
-	mxml && \
- apk add --no-cache \
-    --repository https://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    librespot
+	mxml
 
 # copy buildstage and local files
 COPY --from=buildstage /tmp/daapd-build/ /

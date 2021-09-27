@@ -51,21 +51,8 @@ app_setup_block: |
 
   For further setup options of remotes etc, check out the daapd website, [Owntone]({{ project_url }}).
   
-  ## Enable spotify connect server
-
-  Enable the spotify connect server by creating a pipe named 'spotify' in the root of your mounted music folder (not possible on most network mounts):
-
-  ```sh
-  mkfifo <music_folder>/spotify
-  ```
-
-  The spotify connect server should show up as the 'forked-daapd' device in your Spotify application.
-
-  It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
-
 # changelog
 changelogs:
-  - { date: "14.09.21:", desc: "Enabled librespot. Disabled spotify on ARMv7" }
   - { date: "10.07.21:", desc: "Change of paths to work with the new package name, OwnTone." }
   - { date: "02.04.21:", desc: "Update upstream repo, again." }
   - { date: "30.03.21:", desc: "Update upstream repo." }
