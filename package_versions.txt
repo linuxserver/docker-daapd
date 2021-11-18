@@ -7,7 +7,7 @@ avahi-0.8-r4
 avahi-libs-0.8-r4
 bash-5.0.17-r0
 brotli-libs-1.0.9-r1
-busybox-1.31.1-r20
+busybox-1.31.1-r21
 ca-certificates-20191127-r4
 ca-certificates-bundle-20191127-r4
 confuse-3.2.2-r1
@@ -93,7 +93,7 @@ sdl2-2.0.12-r1
 shadow-4.8.1-r0
 sqlite-3.32.1-r1
 sqlite-libs-3.32.1-r1
-ssl_client-1.31.1-r20
+ssl_client-1.31.1-r21
 tzdata-2021e-r0
 v4l-utils-libs-1.20.0-r0
 wayland-libs-client-1.18.0-r4
