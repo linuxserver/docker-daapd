@@ -2,36 +2,36 @@
 
 # make folders
 mkdir -p \
-	/config/dbase_and_logs \
-	/daapd-pidfolder
+    /config/dbase_and_logs \
+    /daapd-pidfolder
 
 # configure defaults copy of conf
 if [ ! -e "/defaults/owntone.conf" ]; then
 cp /etc/owntone.conf.orig /defaults/owntone.conf
 sed -i \
-	-e '/cache_path\ =/ s/# *//' \
-	-e '/db_path\ =/ s/# *//' \
-	-e s#ipv6\ =\ yes#ipv6\ =\ no#g \
-	-e s#My\ Music\ on\ %h#LS.IO\ Music#g \
-	-e s#/srv/music#/music#g \
-	-e 's/\(uid.*=\).*/\1 \"abc\"/g' \
-	-e s#/var/cache/owntone/cache.db#/config/dbase_and_logs/cache.db#g \
-	-e s#/var/cache/owntone/songs3.db#/config/dbase_and_logs/songs3.db#g \
-	-e s#/var/log/owntone.log#/config/dbase_and_logs/owntone.log#g \
- /defaults/owntone.conf
+    -e '/cache_path\ =/ s/# *//' \
+    -e '/db_path\ =/ s/# *//' \
+    -e s#ipv6\ =\ yes#ipv6\ =\ no#g \
+    -e s#My\ Music\ on\ %h#LS.IO\ Music#g \
+    -e s#/srv/music#/music#g \
+    -e 's/\(uid.*=\).*/\1 \"abc\"/g' \
+    -e s#/var/cache/owntone/cache.db#/config/dbase_and_logs/cache.db#g \
+    -e s#/var/cache/owntone/songs3.db#/config/dbase_and_logs/songs3.db#g \
+    -e s#/var/log/owntone.log#/config/dbase_and_logs/owntone.log#g \
+    /defaults/owntone.conf
 fi
 
 # symlink conf to /conf
 [[ ! -f /config/owntone.conf ]] && \
-	cp /defaults/owntone.conf /config/owntone.conf
+    cp /defaults/owntone.conf /config/owntone.conf
 [[ ! -L /etc/owntone.conf && -f /etc/owntone.conf ]] && \
-	rm /etc/owntone.conf
+    rm /etc/owntone.conf
 [[ ! -L /etc/owntone.conf ]] && \
-	ln -s /config/owntone.conf /etc/owntone.conf
+    ln -s /config/owntone.conf /etc/owntone.conf
 
 
 # permissions
 chown -R abc:abc \
-	/app \
-	/config \
-	/daapd-pidfolder
+    /app \
+    /config \
+    /daapd-pidfolder

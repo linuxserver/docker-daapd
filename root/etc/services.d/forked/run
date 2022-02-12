@@ -1,5 +1,5 @@
 #!/usr/bin/with-contenv bash
 
 exec \
-	s6-setuidgid abc /usr/sbin/owntone -f \
-	-P /daapd-pidfolder/owntone.pid
+    s6-setuidgid abc /usr/sbin/owntone -f \
+    -P /daapd-pidfolder/owntone.pid
