@@ -2,7 +2,7 @@ alpine-baselayout-3.2.0-r7
 alpine-keys-2.4-r0
 alsa-lib-1.2.2-r0
 aom-libs-1.0.0-r1
-apk-tools-2.10.8-r0
+apk-tools-2.10.8-r1
 avahi-0.8-r4
 avahi-libs-0.8-r4
 bash-5.0.17-r0
@@ -63,7 +63,7 @@ libtasn1-4.16.0-r1
 libtheora-1.1.1-r14
 libtls-standalone-2.9.1-r1
 libunistring-0.9.10-r0
-libuuid-2.37.3-r0
+libuuid-2.37.4-r0
 libva-2.7.1-r0
 libvdpau-1.4-r0
 libvorbis-1.3.6-r2
