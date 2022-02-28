@@ -123,7 +123,8 @@ RUN \
     sqlite \
     sqlite-libs && \
   apk add -U --update --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    librespot
+    librespot && \
+  mkdir -p /music
 
 # copy buildstage and local files
 COPY --from=buildstage /tmp/daapd-build/ /
