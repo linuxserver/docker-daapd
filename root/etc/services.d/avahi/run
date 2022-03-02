@@ -5,4 +5,4 @@ sleep 1s
 done
 
 exec \
-	avahi-daemon --no-chroot
+    avahi-daemon --no-chroot
