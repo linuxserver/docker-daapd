@@ -239,6 +239,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **12.02.22:** - Rebase to Alpine 3.15.
 * **14.09.21:** - Enabled librespot. Disabled spotify on ARMv7
 * **10.07.21:** - Change of paths to work with the new package name, OwnTone.
 * **02.04.21:** - Update upstream repo, again.
