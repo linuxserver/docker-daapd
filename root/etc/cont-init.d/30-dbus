@@ -2,11 +2,10 @@
 
 # make our folders
 mkdir -p \
-    /var/run/dbus
+    /run/dbus
 
-
-[[ -e /var/run/dbus.pid ]] && \
-    rm -f /var/run/dbus.pid
+[[ -e /run/dbus/dbus.pid ]] && \
+    rm -f /run/dbus/dbus.pid    
 
 dbus-uuidgen --ensure
 sleep 1
