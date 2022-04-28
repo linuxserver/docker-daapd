@@ -12,7 +12,7 @@ ca-certificates-20211220-r0
 ca-certificates-bundle-20211220-r0
 confuse-3.3-r0
 coreutils-9.0-r2
-curl-7.80.0-r0
+curl-7.80.0-r1
 dbus-1.12.20-r4
 dbus-libs-1.12.20-r4
 expat-2.4.7-r0
@@ -37,7 +37,7 @@ libbz2-1.0.8-r1
 libc-utils-0.7.2-r3
 libcap-2.61-r0
 libcrypto1.1-1.1.1n-r0
-libcurl-7.80.0-r0
+libcurl-7.80.0-r1
 libdaemon-0.14-r2
 libdav1d-0.9.2-r0
 libdrm-2.4.109-r0
