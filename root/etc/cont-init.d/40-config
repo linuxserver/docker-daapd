@@ -29,6 +29,8 @@ fi
 [[ ! -L /etc/owntone.conf ]] && \
     ln -s /config/owntone.conf /etc/owntone.conf
 
+# add user to audio group
+ usermod -a -G audio abc
 
 # permissions
 chown -R abc:abc \
