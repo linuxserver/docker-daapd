@@ -13,6 +13,7 @@ RUN \
     automake \
     avahi-dev \
     bash \
+    bison \
     bsd-compat-headers \
     confuse-dev \
     curl \
@@ -20,6 +21,7 @@ RUN \
     ffmpeg-dev \
     file \
     flac-dev \
+    flex \
     g++ \
     gcc \
     gettext-dev \

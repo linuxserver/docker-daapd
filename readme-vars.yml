@@ -65,6 +65,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "31.05.22:", desc: "Add new deps, flex and bison." }
   - { date: "12.02.22:", desc: "Rebase to Alpine 3.15." }
   - { date: "14.09.21:", desc: "Enabled librespot. Disabled spotify on ARMv7" }
   - { date: "10.07.21:", desc: "Change of paths to work with the new package name, OwnTone." }
