@@ -56,7 +56,7 @@ libpciaccess-0.16-r0
 libplist-2.2.0-r1
 libpng-1.6.37-r1
 libproc-3.3.17-r0
-librespot-0.3.1-r0
+librespot-0.4.1-r0
 libressl-3.4.3-r0
 libressl3.4-libcrypto-3.4.3-r0
 libressl3.4-libssl-3.4.3-r0
