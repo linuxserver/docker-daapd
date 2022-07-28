@@ -7,7 +7,7 @@ avahi-0.8-r5
 avahi-libs-0.8-r5
 bash-5.1.16-r0
 brotli-libs-1.0.9-r5
-busybox-1.34.1-r6
+busybox-1.34.1-r7
 ca-certificates-20211220-r0
 ca-certificates-bundle-20211220-r0
 confuse-3.3-r0
@@ -105,7 +105,7 @@ skalibs-2.11.0.0-r0
 soxr-0.1.3-r2
 sqlite-3.36.0-r0
 sqlite-libs-3.36.0-r0
-ssl_client-1.34.1-r6
+ssl_client-1.34.1-r7
 tzdata-2022a-r0
 utmps-0.1.0.3-r0
 v4l-utils-libs-1.22.1-r1
