@@ -42,6 +42,7 @@ RUN \
     mxml-dev \
     openjdk8-jre-base \
     protobuf-c-dev \
+    pulseaudio-dev \
     sqlite-dev \
     taglib-dev \
     tar && \
@@ -99,7 +100,8 @@ RUN \
     --localstatedir=/var \
     --mandir=/usr/share/man \
     --prefix=/usr \
-    --sysconfdir=/etc && \
+    --sysconfdir=/etc \
+    --with-pulseaudio && \
   make && \
   make DESTDIR=/tmp/daapd-build install && \
   mv /tmp/daapd-build/etc/owntone.conf /tmp/daapd-build/etc/owntone.conf.orig && \
@@ -132,6 +134,7 @@ RUN \
     libwebsockets \
     mxml \
     protobuf-c \
+    pulseaudio-dev \
     sqlite \
     sqlite-libs && \
   apk add -U --update --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/testing \
