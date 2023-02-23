@@ -28,8 +28,8 @@ param_env_vars:
   - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London." }
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "<path to data>", desc: "Where daapd server stores its config and dbase files." }
-  - { vol_path: "/music", vol_host_path: "<path to music>", desc: "Map to your music folder." }
+  - { vol_path: "/config", vol_host_path: "/path/to/data", desc: "Where daapd server stores its config and dbase files." }
+  - { vol_path: "/music", vol_host_path: "/path/to/music", desc: "Map to your music folder." }
 param_usage_include_ports: false
 param_device_map: false
 cap_add_param: false
@@ -65,6 +65,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "23.02.23:", desc: "Rebase to Alpine 3.17, migrate to s6v3." }
   - { date: "31.05.22:", desc: "Make sure the user has access to the audio device." }
   - { date: "31.05.22:", desc: "Add new deps, flex and bison." }
   - { date: "12.02.22:", desc: "Rebase to Alpine 3.15." }
