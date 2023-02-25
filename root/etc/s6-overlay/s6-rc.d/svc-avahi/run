@@ -1,7 +1,8 @@
 #!/usr/bin/with-contenv bash
+# shellcheck shell=bash
 
 until [[ -e /var/run/dbus/system_bus_socket ]]; do
-sleep 1s
+    sleep 1s
 done
 
 exec \

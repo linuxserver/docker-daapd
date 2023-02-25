@@ -1,6 +1,5 @@
 #!/usr/bin/with-contenv bash
+# shellcheck shell=bash
 
 exec \
     dbus-daemon --system --nofork
-
-

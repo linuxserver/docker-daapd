@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine:3.15 as buildstage
+FROM ghcr.io/linuxserver/baseimage-alpine:3.17 as buildstage
 ############## build stage ##############
 
 ARG DAAPD_RELEASE
@@ -12,11 +12,9 @@ RUN \
     autoconf \
     automake \
     avahi-dev \
-    bash \
     bison \
     bsd-compat-headers \
     confuse-dev \
-    curl \
     curl-dev \
     ffmpeg-dev \
     file \
@@ -28,12 +26,11 @@ RUN \
     gnutls-dev \
     gperf \
     json-c-dev \
-    libcurl \
     libevent-dev \
     libgcrypt-dev \
     libogg-dev \
     libplist-dev \
-    libressl-dev \
+    openssl-dev \
     libsodium-dev \
     libtool \
     libunistring-dev \
@@ -43,8 +40,7 @@ RUN \
     openjdk8-jre-base \
     protobuf-c-dev \
     sqlite-dev \
-    taglib-dev \
-    tar && \
+    taglib-dev && \
   echo "**** make antlr wrapper ****" && \
   mkdir -p \
     /tmp/source/owntone && \
@@ -105,7 +101,7 @@ RUN \
   mv /tmp/daapd-build/etc/owntone.conf /tmp/daapd-build/etc/owntone.conf.orig && \
   rm -rf /tmp/daapd-build/var
 ############## runtime stage ##############
-FROM ghcr.io/linuxserver/baseimage-alpine:3.15
+FROM ghcr.io/linuxserver/baseimage-alpine:3.17
 
 # set version label
 ARG BUILD_DATE
@@ -118,17 +114,15 @@ RUN \
   apk add -U --update --no-cache \
     avahi \
     confuse \
-    curl \
     dbus \
     ffmpeg \
     json-c \
-    libcurl \
     libevent \
     libgcrypt \
     libplist \
-    libressl \
     libsodium \
     libunistring \
+    libuuid \
     libwebsockets \
     mxml \
     protobuf-c \
