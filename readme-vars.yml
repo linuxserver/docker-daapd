@@ -22,6 +22,7 @@ param_net_desc: "Shares host networking with container."
 param_usage_include_env: true
 param_env_vars:
   - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London."}
+  - {env_var: "SPOTIFY_CONNECT_NAME", env_value: "MultiRoom", desc: "Specify a name to identify as in the Spotify Connect menu."}
 param_usage_include_vols: true
 param_volumes:
   - {vol_path: "/config", vol_host_path: "/path/to/data", desc: "Where daapd server stores its config and dbase files."}

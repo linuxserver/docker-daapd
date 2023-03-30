@@ -1,3 +1,4 @@
-#!/usr/bin/execlineb -P
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
 
-librespot --backend pipe --device /music/spotify -n forked-daapd --cache /tmp
+librespot --backend pipe --device /music/spotify -n "${SPOTIFY_CONNECT_NAME:OwnTone}" --cache /tmp
