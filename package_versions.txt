@@ -44,7 +44,7 @@ libblkid                2.38.1-r1              apk
 libbsd                  0.11.7-r0              apk     
 libbz2                  1.0.8-r4               apk     
 libc-utils              0.7.2-r3               apk     
-libcap2                 2.66-r0                apk     
+libcap2                 2.66-r1                apk     
 libcrypto3              3.0.8-r4               apk     
 libcurl                 8.0.1-r0               apk     
 libdaemon               0.14-r3                apk     
