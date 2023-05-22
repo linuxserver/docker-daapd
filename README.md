@@ -127,7 +127,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `--net=host` | Shares host networking with container. |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
-| `-e SPOTIFY_CONNECT_NAME=MultiRoom` | optionally specify a name to identify as in the Spotify Connect menu (default is `OwnTone`). |
+| `-e LIBRESPOT_ARGS="-n OwnTone -b 320"` | optionally specify additional arguments to pass to librespot |
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
 | `-v /config` | Where daapd server stores its config and dbase files. |
 | `-v /music` | Map to your music folder. |

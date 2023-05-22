@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-librespot --backend pipe --device /music/spotify -n "${SPOTIFY_CONNECT_NAME:-OwnTone}" --cache /tmp
+eval librespot --backend pipe --device /music/spotify --cache /tmp ${LIBRESPOT_ARGS:-"-n OwnTone"}
