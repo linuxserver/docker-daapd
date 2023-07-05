@@ -7,16 +7,12 @@ project_logo: "https://raw.githubusercontent.com/linuxserver/beta-templates/mast
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
 project_blurb_optional_extras_enabled: false
-
 # supported architectures
 available_architectures:
-  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
-  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
-  - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
-
+  - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
 # development version
 development_versions: false
-
 # container parameters
 common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
@@ -25,15 +21,14 @@ param_net: "host"
 param_net_desc: "Shares host networking with container."
 param_usage_include_env: true
 param_env_vars:
-  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London." }
+  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London."}
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "/path/to/data", desc: "Where daapd server stores its config and dbase files." }
-  - { vol_path: "/music", vol_host_path: "/path/to/music", desc: "Map to your music folder." }
+  - {vol_path: "/config", vol_host_path: "/path/to/data", desc: "Where daapd server stores its config and dbase files."}
+  - {vol_path: "/music", vol_host_path: "/path/to/music", desc: "Map to your music folder."}
 param_usage_include_ports: false
 param_device_map: false
 cap_add_param: false
-
 # optional container parameters
 opt_param_usage_include_env: false
 opt_param_usage_include_vols: false
@@ -41,7 +36,6 @@ opt_param_usage_include_ports: false
 opt_param_device_map: false
 opt_cap_add_param: false
 optional_block_1: false
-
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
@@ -50,7 +44,7 @@ app_setup_block: |
   The web interface is available at `http://<your ip>:3689`
 
   For further setup options of remotes etc, check out the daapd website, [Owntone]({{ project_url }}).
-  
+
   ## Enable spotify connect server
 
   Enable the spotify connect server by creating a pipe named 'spotify' in the root of your mounted music folder (not possible on most network mounts):
@@ -62,35 +56,35 @@ app_setup_block: |
   The spotify connect server should show up as the 'forked-daapd' device in your Spotify application.
 
   It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
-
 # changelog
 changelogs:
-  - { date: "23.02.23:", desc: "Rebase to Alpine 3.17, migrate to s6v3." }
-  - { date: "31.05.22:", desc: "Make sure the user has access to the audio device." }
-  - { date: "31.05.22:", desc: "Add new deps, flex and bison." }
-  - { date: "12.02.22:", desc: "Rebase to Alpine 3.15." }
-  - { date: "14.09.21:", desc: "Enabled librespot. Disabled spotify on ARMv7" }
-  - { date: "10.07.21:", desc: "Change of paths to work with the new package name, OwnTone." }
-  - { date: "02.04.21:", desc: "Update upstream repo, again." }
-  - { date: "30.03.21:", desc: "Update upstream repo." }
-  - { date: "06.10.20:", desc: "Enabled Spotify on Alpine 3.12 for X86_64 and ARMv7." }
-  - { date: "01.06.20:", desc: "Rebasing to alpine 3.12." }
-  - { date: "16.01.20:", desc: "Rebase to alpine linux 3.11 and build antlr3c from source." } 
-  - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
-  - { date: "14.01.19:", desc: "Add pipeline logic and multi arch." }
-  - { date: "20.08.18:", desc: "Rebase to alpine linux 3.8." }
-  - { date: "09.06.18:", desc: "Use buildstage and update dependencies." }
-  - { date: "05.03.18:", desc: "Use updated configure ac and disable avcodecsend to hopefully mitigate crashes with V26." }
-  - { date: "25.02.18:", desc: "Query version before pull and build latest release." }
-  - { date: "03.01.18:", desc: "Deprecate cpu_core routine lack of scaling." }
-  - { date: "07.12.17:", desc: "Rebase to alpine linux 3.7." }
-  - { date: "03.12.17:", desc: "Bump to 25.0, cpu core counting routine for faster builds, linting fixes." }
-  - { date: "26.05.17:", desc: "Rebase to alpine linux 3.6." }
-  - { date: "06.02.17:", desc: "Rebase to alpine linux 3.5." }
-  - { date: "10.01.17:", desc: "Bump to 24.2." }
-  - { date: "14.10.16:", desc: "Add version layer information." }
-  - { date: "17.09.16:", desc: "Rebase to alpine linux, remove redundant spotify support, move to main repository." }
-  - { date: "28.02.16:", desc: "Add chromecast support, bump dependency versions." }
-  - { date: "04.01.16:", desc: "Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set." }
-  - { date: "17.12.15:", desc: "Add in spotify support." }
-  - { date: "25.11.15:", desc: "Initial Release." }
+  - {date: "05.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
+  - {date: "23.02.23:", desc: "Rebase to Alpine 3.17, migrate to s6v3."}
+  - {date: "31.05.22:", desc: "Make sure the user has access to the audio device."}
+  - {date: "31.05.22:", desc: "Add new deps, flex and bison."}
+  - {date: "12.02.22:", desc: "Rebase to Alpine 3.15."}
+  - {date: "14.09.21:", desc: "Enabled librespot. Disabled spotify on ARMv7"}
+  - {date: "10.07.21:", desc: "Change of paths to work with the new package name, OwnTone."}
+  - {date: "02.04.21:", desc: "Update upstream repo, again."}
+  - {date: "30.03.21:", desc: "Update upstream repo."}
+  - {date: "06.10.20:", desc: "Enabled Spotify on Alpine 3.12 for X86_64 and ARMv7."}
+  - {date: "01.06.20:", desc: "Rebasing to alpine 3.12."}
+  - {date: "16.01.20:", desc: "Rebase to alpine linux 3.11 and build antlr3c from source."}
+  - {date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag."}
+  - {date: "14.01.19:", desc: "Add pipeline logic and multi arch."}
+  - {date: "20.08.18:", desc: "Rebase to alpine linux 3.8."}
+  - {date: "09.06.18:", desc: "Use buildstage and update dependencies."}
+  - {date: "05.03.18:", desc: "Use updated configure ac and disable avcodecsend to hopefully mitigate crashes with V26."}
+  - {date: "25.02.18:", desc: "Query version before pull and build latest release."}
+  - {date: "03.01.18:", desc: "Deprecate cpu_core routine lack of scaling."}
+  - {date: "07.12.17:", desc: "Rebase to alpine linux 3.7."}
+  - {date: "03.12.17:", desc: "Bump to 25.0, cpu core counting routine for faster builds, linting fixes."}
+  - {date: "26.05.17:", desc: "Rebase to alpine linux 3.6."}
+  - {date: "06.02.17:", desc: "Rebase to alpine linux 3.5."}
+  - {date: "10.01.17:", desc: "Bump to 24.2."}
+  - {date: "14.10.16:", desc: "Add version layer information."}
+  - {date: "17.09.16:", desc: "Rebase to alpine linux, remove redundant spotify support, move to main repository."}
+  - {date: "28.02.16:", desc: "Add chromecast support, bump dependency versions."}
+  - {date: "04.01.16:", desc: "Disable ipv6 by default because in v23.4 it doesn't work in unraid with it set."}
+  - {date: "17.12.15:", desc: "Add in spotify support."}
+  - {date: "25.11.15:", desc: "Initial Release."}
