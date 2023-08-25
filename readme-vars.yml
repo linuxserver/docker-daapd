@@ -58,6 +58,7 @@ app_setup_block: |
   It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
 # changelog
 changelogs:
+  - {date: "25.08.23:", desc: "Rebase to Alpine 3.18, remove abandoned libspotify libs."}
   - {date: "05.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
   - {date: "23.02.23:", desc: "Rebase to Alpine 3.17, migrate to s6v3."}
   - {date: "31.05.22:", desc: "Make sure the user has access to the audio device."}
