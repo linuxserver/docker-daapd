@@ -88,6 +88,7 @@ RUN \
     json-c \
     libevent \
     libgcrypt \
+    libgnutls \
     libplist \
     libsodium \
     libunistring \
