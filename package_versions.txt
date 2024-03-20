@@ -29,8 +29,8 @@ busybox                    1.36.1-r5               apk
 busybox-binsh              1.36.1-r5               apk           
 byteorder                  1.4.3                   rust-crate    
 bytes                      1.2.0                   rust-crate    
-ca-certificates            20230506-r0             apk           
-ca-certificates-bundle     20230506-r0             apk           
+ca-certificates            20240226-r0             apk           
+ca-certificates-bundle     20240226-r0             apk           
 cfg-if                     1.0.0                   rust-crate    
 cipher                     0.2.5                   rust-crate    
 cjson                      1.7.17-r0               apk           
@@ -125,7 +125,7 @@ libdaemon                  0.14-r4                 apk
 libdav1d                   1.2.1-r0                apk           
 libdrm                     2.4.115-r4              apk           
 libevent                   2.1.12-r6               apk           
-libexpat                   2.6.0-r0                apk           
+libexpat                   2.6.2-r0                apk           
 libffi                     3.4.4-r2                apk           
 libgcc                     12.2.1_git20220924-r10  apk           
 libgcrypt                  1.10.2-r1               apk           
