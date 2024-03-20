@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine:3.18 as buildstage
+FROM ghcr.io/linuxserver/baseimage-alpine:3.19 as buildstage
 ############## build stage ##############
 
 ARG DAAPD_RELEASE
@@ -70,7 +70,7 @@ RUN \
   mv /tmp/daapd-build/etc/owntone.conf /tmp/daapd-build/etc/owntone.conf.orig && \
   rm -rf /tmp/daapd-build/var
 ############## runtime stage ##############
-FROM ghcr.io/linuxserver/baseimage-alpine:3.18
+FROM ghcr.io/linuxserver/baseimage-alpine:3.19
 
 # set version label
 ARG BUILD_DATE
