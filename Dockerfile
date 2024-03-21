@@ -85,10 +85,10 @@ RUN \
     confuse \
     dbus \
     ffmpeg \
+    gnutls \
     json-c \
     libevent \
     libgcrypt \
-    libgnutls \
     libplist \
     libsodium \
     libunistring \
