@@ -59,7 +59,7 @@ The architectures supported by this image are:
 
 ## Application Setup
 
-Map your music folder, open up itunes on the same LAN to see your music there.
+Map your music folder, open up iTunes on the same LAN to see your music there.
 
 The web interface is available at `http://<your ip>:3689`
 
@@ -95,7 +95,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/data:/config
+      - /path/to/daapd/data:/config
       - /path/to/music:/music
     restart: unless-stopped
 ```
@@ -109,7 +109,7 @@ docker run -d \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Etc/UTC \
-  -v /path/to/data:/config \
+  -v /path/to/daapd/data:/config \
   -v /path/to/music:/music \
   --restart unless-stopped \
   lscr.io/linuxserver/daapd:latest
@@ -289,6 +289,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **20.03.24:** - Rebase to Alpine 3.19.
 * **25.08.23:** - Rebase to Alpine 3.18, remove abandoned libspotify libs.
 * **05.07.23:** - Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)
 * **23.02.23:** - Rebase to Alpine 3.17, migrate to s6v3.
