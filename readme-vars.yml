@@ -25,22 +25,13 @@ param_env_vars:
   - {env_var: "LIBRESPOT_ARGS", env_value: "-n OwnTone -b 320", desc: "Optionally specify additional arguments to pass to librespot"}
 param_usage_include_vols: true
 param_volumes:
-  - {vol_path: "/config", vol_host_path: "/path/to/data", desc: "Where daapd server stores its config and dbase files."}
+  - {vol_path: "/config", vol_host_path: "/path/to/{{ project_name }}/data", desc: "Where daapd server stores its config and dbase files."}
   - {vol_path: "/music", vol_host_path: "/path/to/music", desc: "Map to your music folder."}
-param_usage_include_ports: false
-param_device_map: false
-cap_add_param: false
-# optional container parameters
-opt_param_usage_include_env: false
-opt_param_usage_include_vols: false
-opt_param_usage_include_ports: false
-opt_param_device_map: false
-opt_cap_add_param: false
-optional_block_1: false
+
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
-  Map your music folder, open up itunes on the same LAN to see your music there.
+  Map your music folder, open up iTunes on the same LAN to see your music there.
 
   The web interface is available at `http://<your ip>:3689`
 
@@ -57,8 +48,12 @@ app_setup_block: |
   The spotify connect server should show up as the 'forked-daapd' device in your Spotify application.
 
   It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
+  
+  To change the name presented to Spotify, set the `LIBRESPOT_ARGS` variable with the -n argument e.g. `-n Playername`
 # changelog
 changelogs:
+  - {date: "20.03.24:", desc: "Rebase to Alpine 3.19."}
+  - {date: "25.08.23:", desc: "Rebase to Alpine 3.18, remove abandoned libspotify libs."}
   - {date: "05.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
   - {date: "23.02.23:", desc: "Rebase to Alpine 3.17, migrate to s6v3."}
   - {date: "31.05.22:", desc: "Make sure the user has access to the audio device."}
