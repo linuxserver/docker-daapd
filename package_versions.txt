@@ -15,7 +15,7 @@ alsa-sys                      0.3.1                  rust-crate
 anyhow                        1.0.71                 rust-crate                  
 anyhow                        1.0.75                 rust-crate                  
 aom-libs                      3.7.1-r0               apk                         
-apk-tools                     2.14.0-r5              apk                         
+apk-tools                     2.14.3-r1              apk                         
 arg_enum_proc_macro           0.3.2                  rust-crate                  
 arrayvec                      0.7.2                  rust-crate                  
 async-trait                   0.1.56                 rust-crate                  
