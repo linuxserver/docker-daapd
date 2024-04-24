@@ -15,7 +15,7 @@ alsa-sys                      0.3.1                  rust-crate
 anyhow                        1.0.71                 rust-crate                  
 anyhow                        1.0.75                 rust-crate                  
 aom-libs                      3.7.1-r0               apk                         
-apk-tools                     2.14.3-r1              apk                         
+apk-tools                     2.14.4-r0              apk                         
 arg_enum_proc_macro           0.3.2                  rust-crate                  
 arrayvec                      0.7.2                  rust-crate                  
 async-trait                   0.1.56                 rust-crate                  
@@ -88,6 +88,7 @@ ffmpeg-libavutil              6.1.1-r0               apk
 ffmpeg-libpostproc            6.1.1-r0               apk                         
 ffmpeg-libswresample          6.1.1-r0               apk                         
 ffmpeg-libswscale             6.1.1-r0               apk                         
+findutils                     4.9.0-r5               apk                         
 fixedbitset                   0.4.2                  rust-crate                  
 fnv                           1.0.7                  rust-crate                  
 fontconfig                    2.14.2-r4              apk                         
