@@ -8,7 +8,7 @@ aho-corasick                  0.7.18                 rust-crate
 alpine-baselayout             3.4.3-r2               apk                         
 alpine-baselayout-data        3.4.3-r2               apk                         
 alpine-keys                   2.4-r1                 apk                         
-alpine-release                3.19.1-r0              apk                         
+alpine-release                3.19.2-r0              apk                         
 alsa                          0.6.0                  rust-crate                  
 alsa-lib                      1.2.10-r0              apk                         
 alsa-sys                      0.3.1                  rust-crate                  
