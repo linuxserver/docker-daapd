@@ -33,6 +33,10 @@ sed -i \
     -e s#/var/cache/owntone/cache.db#/config/dbase_and_logs/cache.db#g \
     -e s#/var/cache/owntone/songs3.db#/config/dbase_and_logs/songs3.db#g \
     -e s#/var/log/owntone.log#/config/dbase_and_logs/owntone.log#g \
+    -e '/trusted_networks\ =/ s/# *//' \
+    -e 's#trusted_networks = {.*#trusted_networks = { "lan" }#' \
+    -e '/admin_password\ =/ s/# *//' \
+    -e 's#admin_password = .*#admin_password = "changeme"#' \
     /defaults/owntone.conf
 fi
 

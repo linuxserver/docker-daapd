@@ -3,16 +3,13 @@
 # project information
 project_name: daapd
 project_url: "https://owntone.github.io/owntone-server/"
-project_logo: "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/daapd-git.png"
+project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/daapd-icon.png"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
-project_blurb_optional_extras_enabled: false
 # supported architectures
 available_architectures:
   - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
   - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
-# development version
-development_versions: false
 # container parameters
 common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
@@ -29,7 +26,7 @@ app_setup_block_enabled: true
 app_setup_block: |
   Map your music folder, open up iTunes on the same LAN to see your music there.
 
-  The web interface is available at `http://<your ip>:3689`
+  The web interface is available at `http://<your ip>:3689`. The default credentials are admin/changeme.
 
   For further setup options of remotes etc, check out the daapd website, [Owntone]({{ project_url }}).
 
@@ -46,6 +43,7 @@ app_setup_block: |
   It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
 # changelog
 changelogs:
+  - {date: "27.08.24:", desc: "Rebase to Alpine 3.20."}
   - {date: "20.03.24:", desc: "Rebase to Alpine 3.19."}
   - {date: "25.08.23:", desc: "Rebase to Alpine 3.18, remove abandoned libspotify libs."}
   - {date: "05.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
