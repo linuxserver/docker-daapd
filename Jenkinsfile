@@ -37,7 +37,7 @@ pipeline {
     CI_SSL='false'
     CI_DELAY='120'
     CI_DOCKERENV=''
-    CI_AUTH=''
+    CI_AUTH='admin:changeme'
     CI_WEBPATH=''
   }
   stages {

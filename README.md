@@ -61,7 +61,7 @@ The architectures supported by this image are:
 
 Map your music folder, open up iTunes on the same LAN to see your music there.
 
-The web interface is available at `http://<your ip>:3689`
+The web interface is available at `http://<your ip>:3689`. The default credentials are admin/changeme.
 
 For further setup options of remotes etc, check out the daapd website, [Owntone](https://owntone.github.io/owntone-server/).
 
