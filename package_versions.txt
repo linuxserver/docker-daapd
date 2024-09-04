@@ -46,7 +46,7 @@ cpufeatures                0.2.2                  rust-crate
 crypto-common              0.1.6                  rust-crate    
 crypto-mac                 0.11.1                 rust-crate    
 ctr                        0.6.0                  rust-crate    
-curl                       8.9.0-r0               apk           
+curl                       8.9.1-r1               apk           
 dbus                       1.14.10-r1             apk           
 dbus-daemon-launch-helper  1.14.10-r1             apk           
 dbus-libs                  1.14.10-r1             apk           
@@ -127,7 +127,7 @@ libbz2                     1.0.8-r6               apk
 libc                       0.2.147                rust-crate    
 libcap2                    2.70-r0                apk           
 libcrypto3                 3.3.1-r3               apk           
-libcurl                    8.9.0-r0               apk           
+libcurl                    8.9.1-r1               apk           
 libdaemon                  0.14-r4                apk           
 libdav1d                   1.4.2-r0               apk           
 libdovi                    3.3.0-r0               apk           
@@ -204,7 +204,7 @@ lock_api                   0.4.7                  rust-crate
 log                        0.4.17                 rust-crate    
 match_cfg                  0.1.0                  rust-crate    
 matches                    0.1.9                  rust-crate    
-mbedtls                    3.6.0-r0               apk           
+mbedtls                    3.6.1-r0               apk           
 memchr                     2.5.0                  rust-crate    
 memoffset                  0.6.5                  rust-crate    
 mime                       0.3.16                 rust-crate    
