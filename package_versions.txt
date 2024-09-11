@@ -8,7 +8,7 @@ aho-corasick               0.7.18                 rust-crate
 alpine-baselayout          3.6.5-r0               apk           
 alpine-baselayout-data     3.6.5-r0               apk           
 alpine-keys                2.4-r1                 apk           
-alpine-release             3.20.2-r0              apk           
+alpine-release             3.20.3-r0              apk           
 alsa                       0.6.0                  rust-crate    
 alsa-lib                   1.2.11-r0              apk           
 alsa-sys                   0.3.1                  rust-crate    
@@ -84,7 +84,7 @@ getopts                    0.2.21                 rust-crate
 getrandom                  0.2.7                  rust-crate    
 giflib                     5.2.2-r0               apk           
 gimli                      0.26.2                 rust-crate    
-glib                       2.80.2-r0              apk           
+glib                       2.80.4-r0              apk           
 glslang-libs               1.3.261.1-r0           apk           
 gmp                        6.3.0-r1               apk           
 gnutls                     3.8.5-r0               apk           
@@ -106,7 +106,7 @@ hyper                      0.14.20                rust-crate
 hyper-proxy                0.9.1                  rust-crate    
 idna                       0.2.3                  rust-crate    
 if-addrs                   0.7.0                  rust-crate    
-imath                      3.1.11-r2              apk           
+imath                      3.1.12-r0              apk           
 indexmap                   1.9.1                  rust-crate    
 instant                    0.1.12                 rust-crate    
 itoa                       1.0.2                  rust-crate    
@@ -126,7 +126,7 @@ libbsd                     0.12.2-r0              apk
 libbz2                     1.0.8-r6               apk           
 libc                       0.2.147                rust-crate    
 libcap2                    2.70-r0                apk           
-libcrypto3                 3.3.1-r3               apk           
+libcrypto3                 3.3.2-r0               apk           
 libcurl                    8.9.1-r1               apk           
 libdaemon                  0.14-r4                apk           
 libdav1d                   1.4.2-r0               apk           
@@ -134,7 +134,7 @@ libdovi                    3.3.0-r0               apk
 libdrm                     2.4.120-r0             apk           
 libeconf                   0.6.3-r0               apk           
 libevent                   2.1.12-r7              apk           
-libexpat                   2.6.2-r0               apk           
+libexpat                   2.6.3-r0               apk           
 libffi                     3.4.6-r0               apk           
 libflac                    1.4.3-r1               apk           
 libgcc                     13.2.1_git20240309-r0  apk           
@@ -176,7 +176,7 @@ libsndfile                 1.2.2-r0               apk
 libsodium                  1.0.19-r0              apk           
 libsrt                     1.5.3-r0               apk           
 libssh                     0.10.6-r0              apk           
-libssl3                    3.3.1-r3               apk           
+libssl3                    3.3.2-r0               apk           
 libstdc++                  13.2.1_git20240309-r0  apk           
 libtasn1                   4.19.0-r2              apk           
 libtheora                  1.1.1-r18              apk           
@@ -235,7 +235,7 @@ openexr-libiex             3.1.13-r1              apk
 openexr-libilmthread       3.1.13-r1              apk           
 openexr-libopenexr         3.1.13-r1              apk           
 opus                       1.5.2-r0               apk           
-orc                        0.4.37-r0              apk           
+orc                        0.4.39-r0              apk           
 p11-kit                    0.25.3-r0              apk           
 parking_lot                0.11.2                 rust-crate    
 parking_lot                0.12.1                 rust-crate    
@@ -313,7 +313,7 @@ tracing                    0.1.35                 rust-crate
 tracing-core               0.1.28                 rust-crate    
 try-lock                   0.2.3                  rust-crate    
 typenum                    1.15.0                 rust-crate    
-tzdata                     2024a-r1               apk           
+tzdata                     2024b-r0               apk           
 unicode-bidi               0.3.8                  rust-crate    
 unicode-ident              1.0.2                  rust-crate    
 unicode-normalization      0.1.21                 rust-crate    
