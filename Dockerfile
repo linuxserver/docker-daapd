@@ -28,13 +28,14 @@ RUN \
     libgcrypt-dev \
     libogg-dev \
     libplist-dev \
-    openssl-dev \
     libsodium-dev \
     libtool \
     libunistring-dev \
     libwebsockets-dev \
+    libxml2-dev \
     mxml-dev \
     openjdk8-jre-base \
+    openssl-dev \
     protobuf-c-dev \
     sqlite-dev \
     taglib-dev && \

@@ -32,6 +32,7 @@ RUN \
     libtool \
     libunistring-dev \
     libwebsockets-dev \
+    libxml2-dev \
     mxml-dev \
     openjdk8-jre-base \
     openssl-dev \
