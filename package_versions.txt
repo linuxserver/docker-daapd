@@ -46,7 +46,7 @@ cpufeatures                0.2.2                  rust-crate
 crypto-common              0.1.6                  rust-crate    
 crypto-mac                 0.11.1                 rust-crate    
 ctr                        0.6.0                  rust-crate    
-curl                       8.9.1-r1               apk           
+curl                       8.10.0-r0              apk           
 dbus                       1.14.10-r1             apk           
 dbus-daemon-launch-helper  1.14.10-r1             apk           
 dbus-libs                  1.14.10-r1             apk           
@@ -84,7 +84,7 @@ getopts                    0.2.21                 rust-crate
 getrandom                  0.2.7                  rust-crate    
 giflib                     5.2.2-r0               apk           
 gimli                      0.26.2                 rust-crate    
-glib                       2.80.4-r0              apk           
+glib                       2.80.5-r0              apk           
 glslang-libs               1.3.261.1-r0           apk           
 gmp                        6.3.0-r1               apk           
 gnutls                     3.8.5-r0               apk           
@@ -127,7 +127,7 @@ libbz2                     1.0.8-r6               apk
 libc                       0.2.147                rust-crate    
 libcap2                    2.70-r0                apk           
 libcrypto3                 3.3.2-r0               apk           
-libcurl                    8.9.1-r1               apk           
+libcurl                    8.10.0-r0              apk           
 libdaemon                  0.14-r4                apk           
 libdav1d                   1.4.2-r0               apk           
 libdovi                    3.3.0-r0               apk           
@@ -151,13 +151,13 @@ libm                       0.2.2                  rust-crate
 libmd                      1.1.0-r0               apk           
 libmdns                    0.7.0                  rust-crate    
 libmount                   2.40.1-r1              apk           
-libncursesw                6.4_p20240420-r0       apk           
+libncursesw                6.4_p20240420-r1       apk           
 libogg                     1.3.5-r5               apk           
 libopenmpt                 0.7.7-r0               apk           
 libpciaccess               0.18.1-r0              apk           
 libplacebo                 6.338.2-r1             apk           
 libplist                   2.4.0-r1               apk           
-libpng                     1.6.43-r0              apk           
+libpng                     1.6.44-r0              apk           
 libproc2                   4.0.4-r0               apk           
 libpsl                     0.21.5-r1              apk           
 libpulse                   17.0-r0                apk           
@@ -215,7 +215,7 @@ multimap                   0.8.3                  rust-crate
 musl                       1.2.5-r0               apk           
 musl-utils                 1.2.5-r0               apk           
 mxml                       3.3.1-r0               apk           
-ncurses-terminfo-base      6.4_p20240420-r0       apk           
+ncurses-terminfo-base      6.4_p20240420-r1       apk           
 netcat-openbsd             1.226-r0               apk           
 nettle                     3.9.1-r0               apk           
 nghttp2-libs               1.62.1-r0              apk           
