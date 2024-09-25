@@ -46,7 +46,7 @@ cpufeatures                0.2.2                  rust-crate
 crypto-common              0.1.6                  rust-crate    
 crypto-mac                 0.11.1                 rust-crate    
 ctr                        0.6.0                  rust-crate    
-curl                       8.10.0-r0              apk           
+curl                       8.9.1-r2               apk           
 dbus                       1.14.10-r1             apk           
 dbus-daemon-launch-helper  1.14.10-r1             apk           
 dbus-libs                  1.14.10-r1             apk           
@@ -127,7 +127,7 @@ libbz2                     1.0.8-r6               apk
 libc                       0.2.147                rust-crate    
 libcap2                    2.70-r0                apk           
 libcrypto3                 3.3.2-r0               apk           
-libcurl                    8.10.0-r0              apk           
+libcurl                    8.9.1-r2               apk           
 libdaemon                  0.14-r4                apk           
 libdav1d                   1.4.2-r0               apk           
 libdovi                    3.3.0-r0               apk           
