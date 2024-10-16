@@ -204,7 +204,7 @@ lock_api                   0.4.7                  rust-crate
 log                        0.4.17                 rust-crate    
 match_cfg                  0.1.0                  rust-crate    
 matches                    0.1.9                  rust-crate    
-mbedtls                    3.6.1-r0               apk           
+mbedtls                    3.6.2-r0               apk           
 memchr                     2.5.0                  rust-crate    
 memoffset                  0.6.5                  rust-crate    
 mime                       0.3.16                 rust-crate    
