@@ -241,7 +241,7 @@ mime                       0.3.17                 rust-crate
 miniz_oxide                0.8.0                  rust-crate    
 mio                        1.0.2                  rust-crate    
 mirai-annotations          1.12.0                 rust-crate    
-mpg123-libs                1.32.6-r0              apk           
+mpg123-libs                1.32.8-r0              apk           
 multimap                   0.10.0                 rust-crate    
 musl                       1.2.5-r0               apk           
 musl-utils                 1.2.5-r0               apk           
