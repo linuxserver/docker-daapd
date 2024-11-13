@@ -77,6 +77,7 @@ The spotify connect server should show up as the 'forked-daapd' device in your S
 
 It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
 
+ 
 ## Usage
 
 To help you get started creating a container from this image you can either use docker-compose or the docker cli.
@@ -280,10 +281,10 @@ docker build \
   -t lscr.io/linuxserver/daapd:latest .
 ```
 
-The ARM variants can be built on x86_64 hardware using `multiarch/qemu-user-static`
+The ARM variants can be built on x86_64 hardware and vice versa using `lscr.io/linuxserver/qemu-static`
 
 ```bash
-docker run --rm --privileged multiarch/qemu-user-static:register --reset
+docker run --rm --privileged lscr.io/linuxserver/qemu-static --reset
 ```
 
 Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64`.
