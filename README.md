@@ -77,10 +77,12 @@ The spotify connect server should show up as the 'forked-daapd' device in your S
 
 It is recommended to set the `pipe_autostart` option to `true` in your forked-daapd config.
 
- 
 ## Usage
 
 To help you get started creating a container from this image you can either use docker-compose or the docker cli.
+
+>[!NOTE]
+>Unless a parameter is flaged as 'optional', it is *mandatory* and a value must be provided.
 
 ### docker-compose (recommended, [click here for more info](https://docs.linuxserver.io/general/docker-compose))
 
