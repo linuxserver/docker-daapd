@@ -38,8 +38,8 @@ bytemuck                   1.19.0                 rust-crate
 byteorder                  1.5.0                  rust-crate    
 bytes                      1.8.0                  rust-crate    
 c-ares                     1.33.1-r0              apk           
-ca-certificates            20240705-r0            apk           
-ca-certificates-bundle     20240705-r0            apk           
+ca-certificates            20241121-r0            apk           
+ca-certificates-bundle     20241121-r0            apk           
 catatonit                  0.2.0-r0               apk           
 cfg-if                     1.0.0                  rust-crate    
 chrono                     0.4.38                 rust-crate    
@@ -204,7 +204,7 @@ librespot-playback         0.6.0                  rust-crate
 librespot-protocol         0.6.0                  rust-crate    
 librist                    0.2.10-r1              apk           
 libsharpyuv                1.3.2-r0               apk           
-libsndfile                 1.2.2-r0               apk           
+libsndfile                 1.2.2-r1               apk           
 libsodium                  1.0.19-r0              apk           
 libsrt                     1.5.3-r0               apk           
 libssh                     0.10.6-r0              apk           
