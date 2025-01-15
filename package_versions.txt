@@ -5,7 +5,7 @@ aes                        0.8.4                  rust-crate
 alpine-baselayout          3.6.5-r0               apk           
 alpine-baselayout-data     3.6.5-r0               apk           
 alpine-keys                2.4-r1                 apk           
-alpine-release             3.20.3-r0              apk           
+alpine-release             3.20.5-r0              apk           
 alsa                       0.9.1                  rust-crate    
 alsa-lib                   1.2.11-r0              apk           
 alsa-sys                   0.3.1                  rust-crate    
@@ -38,8 +38,8 @@ bytemuck                   1.19.0                 rust-crate
 byteorder                  1.5.0                  rust-crate    
 bytes                      1.8.0                  rust-crate    
 c-ares                     1.33.1-r0              apk           
-ca-certificates            20241121-r0            apk           
-ca-certificates-bundle     20241121-r0            apk           
+ca-certificates            20241121-r1            apk           
+ca-certificates-bundle     20241121-r1            apk           
 catatonit                  0.2.0-r0               apk           
 cfg-if                     1.0.0                  rust-crate    
 chrono                     0.4.38                 rust-crate    
@@ -48,10 +48,10 @@ cjson                      1.7.18-r0              apk
 colorchoice                1.0.3                  rust-crate    
 confuse                    3.3-r4                 apk           
 const-oid                  0.9.6                  rust-crate    
-coreutils                  9.5-r1                 apk           
-coreutils-env              9.5-r1                 apk           
-coreutils-fmt              9.5-r1                 apk           
-coreutils-sha512sum        9.5-r1                 apk           
+coreutils                  9.5-r2                 apk           
+coreutils-env              9.5-r2                 apk           
+coreutils-fmt              9.5-r2                 apk           
+coreutils-sha512sum        9.5-r2                 apk           
 cpal                       0.15.3                 rust-crate    
 cpufeatures                0.2.14                 rust-crate    
 crypto-common              0.1.6                  rust-crate    
