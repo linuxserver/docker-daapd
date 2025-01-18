@@ -6,6 +6,10 @@ project_url: "https://owntone.github.io/owntone-server/"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/daapd-icon.png"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+project_deprecation_status: true
+project_deprecation_message: |
+  We recommend switching to the official container image
+  https://github.com/owntone/owntone-container
 # supported architectures
 available_architectures:
   - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
@@ -92,6 +96,7 @@ init_diagram: |
   "daapd:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "17.01.25:", desc: "Deprecate."}
   - {date: "27.08.24:", desc: "Rebase to Alpine 3.20."}
   - {date: "20.03.24:", desc: "Rebase to Alpine 3.19."}
   - {date: "25.08.23:", desc: "Rebase to Alpine 3.18, remove abandoned libspotify libs."}
