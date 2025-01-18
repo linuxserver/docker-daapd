@@ -66,6 +66,7 @@ init_diagram: |
     init-os-end -> init-crontab-config
     init-mods-end -> init-custom-files
     init-config -> init-daapd-config
+    init-config-end -> init-deprecate
     base -> init-envfile
     base -> init-migrations
     base -> init-mods
@@ -78,6 +79,7 @@ init_diagram: |
     init-envfile -> init-os-end
     init-migrations -> init-os-end
     init-custom-files -> init-services
+    init-deprecate -> init-services
     init-mods-end -> init-services
     svc-dbus -> svc-avahi
     svc-avahi -> legacy-services
